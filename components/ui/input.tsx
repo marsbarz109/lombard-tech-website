@@ -27,7 +27,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="relative">
-        <motion.input
+        <input
           ref={ref}
           type={type}
           id={inputId}

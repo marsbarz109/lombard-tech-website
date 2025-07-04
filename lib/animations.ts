@@ -259,4 +259,36 @@ export const successCheckmark: Variants = {
       ease: 'easeOut',
     },
   },
+}
+
+// Section fade in animation
+export const sectionFadeIn: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
+}
+
+// Card hover animation
+export const cardHover: Variants = {
+  initial: {
+    scale: 1,
+    y: 0,
+  },
+  hover: {
+    scale: 1.02,
+    y: -4,
+    transition: {
+      duration: 0.3,
+      ease: 'easeOut',
+    },
+  },
 } 
