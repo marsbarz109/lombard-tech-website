@@ -13,8 +13,9 @@ export function useActiveSection() {
       let currentSection = 'home' // Default to home
 
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop
-        const sectionHeight = section.offsetHeight
+        const element = section as HTMLElement
+        const sectionTop = element.offsetTop
+        const sectionHeight = element.offsetHeight
         
         if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
           currentSection = section.id
