@@ -10,22 +10,22 @@ export interface ButtonProps extends HTMLMotionProps<'button'> {
 
 const buttonVariants = {
   primary: [
-    'bg-primary-black text-pure-white',
-    'border border-primary-black',
-    'hover:bg-pure-white hover:text-primary-black',
+    'bg-company-gold text-deep-navy',
+    'border border-company-gold',
+    'hover:bg-pure-white hover:text-company-gold',
   ],
   secondary: [
-    'bg-accent-blue text-pure-white',
-    'border border-accent-blue',
-    'hover:bg-hover-blue',
+    'bg-deep-navy text-pure-white',
+    'border border-deep-navy',
+    'hover:bg-company-gold hover:text-deep-navy',
   ],
   outline: [
-    'bg-transparent text-primary-black',
-    'border border-primary-black',
-    'hover:bg-primary-black hover:text-pure-white',
+    'bg-transparent text-deep-navy',
+    'border border-deep-navy',
+    'hover:bg-deep-navy hover:text-pure-white',
   ],
   ghost: [
-    'bg-transparent text-primary-black',
+    'bg-transparent text-deep-navy',
     'border border-transparent',
     'hover:bg-light-gray',
   ],
@@ -48,7 +48,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'font-semibold tracking-wide',
           'rounded-none',
           'transition-all duration-300 ease-out',
-          'focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2',
+          'focus:outline-none focus:ring-2 focus:ring-company-gold focus:ring-offset-2',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           buttonVariants[variant],
           sizeVariants[size],

@@ -151,7 +151,7 @@ export function CVUploadForm() {
         transition={{ duration: 0.5 }}
       >
         <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-primary-black mb-2">
+        <h3 className="text-xl font-semibold text-company-gold mb-2">
           CV submitted successfully!
         </h3>
         <p className="text-text-gray">
@@ -213,16 +213,23 @@ export function CVUploadForm() {
       </div>
 
       {/* File Upload */}
-      <div>
-        <label className="block text-sm font-medium text-primary-black mb-2">
-          Upload CV
+      <div className="space-y-4">
+        <label className="block text-sm font-medium text-primary-black">
+          Upload CV <span className="text-red-500">*</span>
         </label>
+        
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+          <p className="text-sm text-amber-700">
+            <strong>Demo Note:</strong> This is a demonstration form. Files are not actually saved to a server. 
+            In a production environment, this would integrate with a backend service to securely store uploaded documents.
+          </p>
+        </div>
+
         <div
           className={cn(
-            'border-2 border-dashed rounded-lg p-8 text-center',
-            'transition-colors duration-200',
-            isDragOver ? 'border-accent-blue bg-blue-50' : 'border-medium-gray',
-            errors.file && 'border-red-500'
+            "border-2 border-dashed rounded-lg p-8 text-center transition-colors duration-300",
+            isDragOver ? "border-accent-blue bg-accent-blue/5" : "border-medium-gray",
+            errors.file ? "border-red-500 bg-red-50" : ""
           )}
           onDrop={handleDrop}
           onDragOver={handleDragOver}

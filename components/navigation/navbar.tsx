@@ -64,12 +64,17 @@ export function Navbar() {
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
-    } else if (href.startsWith('#') && pathname === '/') {
-      // Anchor links only work on home page
+    } else if (href.startsWith('#')) {
       e.preventDefault()
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+      if (pathname === '/') {
+        // We're on home page, can scroll directly
+        const element = document.querySelector(href)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      } else {
+        // We're on a different page, need to go to home page first
+        window.location.href = `/${href}`
       }
     }
     // For other cases (navigation between pages), let the default behavior handle it
@@ -80,13 +85,14 @@ export function Navbar() {
       <motion.header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 px-6 py-4 lg:px-8",
-          "transition-all duration-300 ease-out"
+          "transition-all duration-300 ease-out",
+          isScrolled ? "bg-deep-navy/95 backdrop-blur-md shadow-lg" : "bg-transparent"
         )}
         variants={navbarScroll}
         animate={isScrolled ? 'scrolled' : 'top'}
         initial="top"
       >
-        <nav className="mx-auto max-w-7xl flex items-center justify-between">
+        <nav className="mx-auto max-w-screen-2xl flex items-center justify-between">
           {/* Logo */}
           <motion.div
             variants={logoFadeIn}
@@ -95,7 +101,7 @@ export function Navbar() {
           >
             <Link 
               href="/" 
-              className="text-2xl font-black text-primary-black hover:opacity-80 transition-opacity"
+              className="text-2xl font-black text-company-gold hover:opacity-80 transition-opacity"
             >
               {SITE_CONFIG.logo}
             </Link>
@@ -115,12 +121,12 @@ export function Navbar() {
                     href={item.href}
                     className={cn(
                       "relative text-sm font-medium transition-colors duration-200",
-                      "hover:text-accent-blue",
+                      "hover:text-company-gold",
                       "after:absolute after:bottom-0 after:left-0 after:h-0.5",
-                      "after:bg-accent-blue after:transition-all after:duration-300",
+                      "after:bg-company-gold after:transition-all after:duration-300",
                       isActiveNavItem(item.href) ? 
-                        "text-accent-blue after:w-full" : 
-                        "text-primary-black after:w-0 hover:after:w-full"
+                        "text-company-gold after:w-full" : 
+                        "text-pure-white after:w-0 hover:after:w-full"
                     )}
                     onClick={(e) => {
                       handleNavClick(item.href, e)
@@ -133,12 +139,12 @@ export function Navbar() {
                     href={item.href}
                     className={cn(
                       "relative text-sm font-medium transition-colors duration-200",
-                      "hover:text-accent-blue",
+                      "hover:text-company-gold",
                       "after:absolute after:bottom-0 after:left-0 after:h-0.5",
-                      "after:bg-accent-blue after:transition-all after:duration-300",
+                      "after:bg-company-gold after:transition-all after:duration-300",
                       isActiveNavItem(item.href) ? 
-                        "text-accent-blue after:w-full" : 
-                        "text-primary-black after:w-0 hover:after:w-full"
+                        "text-company-gold after:w-full" : 
+                        "text-pure-white after:w-0 hover:after:w-full"
                     )}
                     onClick={(e) => {
                       handleNavClick(item.href, e)
@@ -163,12 +169,13 @@ export function Navbar() {
                 className={cn(
                   "btn-hover",
                   "inline-flex items-center px-6 py-3",
-                  "bg-primary-black text-pure-white",
-                  "rounded-none border border-primary-black",
+                  "bg-company-gold text-deep-navy",
+                  "rounded-none border border-company-gold",
                   "text-sm font-medium",
-                  "hover:bg-pure-white hover:text-primary-black",
+                  "hover:bg-pure-white hover:text-company-gold",
                   "transition-all duration-300 ease-out",
-                  "focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2"
+                  "focus:outline-none focus:ring-2 focus:ring-pure-white focus:ring-offset-2",
+                  "shadow-md"
                 )}
               >
                 Submit CV
@@ -182,8 +189,8 @@ export function Navbar() {
               onClick={toggleMobileMenu}
               className={cn(
                 "p-2 rounded-md",
-                "hover:bg-light-gray transition-colors",
-                "focus:outline-none focus:ring-2 focus:ring-accent-blue"
+                "hover:bg-company-gold hover:bg-opacity-20 transition-colors",
+                "focus:outline-none focus:ring-2 focus:ring-company-gold"
               )}
               aria-label="Toggle mobile menu"
               whileTap={{ scale: 0.95 }}
@@ -197,7 +204,7 @@ export function Navbar() {
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <X className="h-6 w-6" />
+                    <X className="h-6 w-6 text-pure-white" />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -207,7 +214,7 @@ export function Navbar() {
                     exit={{ rotate: -90, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <Menu className="h-6 w-6" />
+                    <Menu className="h-6 w-6 text-pure-white" />
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -34,8 +34,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             'block w-full px-4 py-4',
             'bg-pure-white border border-medium-gray',
-            'text-primary-black placeholder-transparent',
-            'focus:border-accent-blue focus:outline-none',
+            'text-deep-navy placeholder-transparent',
+            'focus:border-company-gold focus:outline-none',
             'transition-all duration-200 ease-out',
             'peer',
             error && 'border-red-500 focus:border-red-500',
@@ -55,8 +55,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               'absolute left-4 transition-all duration-200 ease-out',
               'text-text-gray pointer-events-none',
               'peer-placeholder-shown:top-4 peer-placeholder-shown:text-base',
-              'peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent-blue',
-              (isFocused || hasValue || props.value) && 'top-2 text-xs text-accent-blue',
+              'peer-focus:top-2 peer-focus:text-xs peer-focus:text-company-gold',
+              (isFocused || hasValue || props.value) && 'top-2 text-xs text-company-gold',
               error && 'peer-focus:text-red-500'
             )}
             animate={{

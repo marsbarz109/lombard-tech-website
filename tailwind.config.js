@@ -8,13 +8,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-black': '#000000',
+        'deep-navy': '#0A1628',
+        'company-gold': '#C9B037',
         'pure-white': '#FFFFFF',
-        'light-gray': '#F8F8F8',
+        'light-gray': '#F5F5F5',
         'medium-gray': '#E5E5E5',
         'text-gray': '#666666',
-        'accent-blue': '#0066FF',
-        'hover-blue': '#0052CC',
+        'primary-black': '#0A1628',
+        'accent-blue': '#C9B037',
+        'hover-blue': '#B8A032',
       },
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],

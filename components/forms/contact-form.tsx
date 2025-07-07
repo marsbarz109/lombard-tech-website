@@ -101,7 +101,7 @@ export function ContactForm() {
         transition={{ duration: 0.5 }}
       >
         <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-primary-black mb-2">
+        <h3 className="text-xl font-semibold text-company-gold mb-2">
           Thank you for your message!
         </h3>
         <p className="text-text-gray">
@@ -169,8 +169,8 @@ export function ContactForm() {
           className={cn(
             'block w-full px-4 py-4',
             'bg-pure-white border border-medium-gray',
-            'text-primary-black placeholder-gray-400',
-            'focus:border-accent-blue focus:outline-none',
+            'text-deep-navy placeholder-gray-400',
+            'focus:border-company-gold focus:outline-none',
             'transition-all duration-200 ease-out',
             'resize-none',
             errors.message && 'border-red-500 focus:border-red-500'
@@ -180,7 +180,7 @@ export function ContactForm() {
           onChange={handleChange}
           required
         />
-        <label className="absolute top-2 left-4 text-xs text-accent-blue">
+        <label className="absolute top-2 left-4 text-xs text-company-gold">
           Message
         </label>
         {errors.message && (

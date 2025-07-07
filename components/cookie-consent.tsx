@@ -46,7 +46,7 @@ export function CookieConsent() {
         >
           <div className="max-w-4xl mx-auto">
             <div className={cn(
-              "bg-pure-white border border-medium-gray shadow-2xl",
+              "bg-deep-navy border border-company-gold border-opacity-30 shadow-2xl",
               "p-6 flex flex-col lg:flex-row items-start lg:items-center gap-4",
               "relative"
             )}>
@@ -55,7 +55,7 @@ export function CookieConsent() {
                 onClick={handleClose}
                 className={cn(
                   "absolute top-4 right-4 p-1",
-                  "text-text-gray hover:text-primary-black",
+                  "text-gray-300 hover:text-pure-white",
                   "transition-colors duration-200",
                   "lg:hidden"
                 )}
@@ -66,20 +66,20 @@ export function CookieConsent() {
 
               {/* Cookie Icon */}
               <div className="flex-shrink-0">
-                <Cookie className="h-6 w-6 text-accent-blue" />
+                <Cookie className="h-6 w-6 text-company-gold" />
               </div>
 
               {/* Content */}
               <div className="flex-1">
-                <h3 className="font-semibold text-primary-black mb-2">
+                <h3 className="font-semibold text-pure-white mb-2">
                   We use cookies to enhance your experience
                 </h3>
-                <p className="text-sm text-text-gray leading-relaxed">
+                <p className="text-sm text-gray-200 leading-relaxed">
                   We use cookies to analyze website traffic and optimize your experience. 
                   By accepting, you consent to our use of cookies in accordance with our{' '}
                   <a 
                     href="/cookie-policy" 
-                    className="text-accent-blue hover:underline"
+                    className="text-company-gold hover:underline"
                   >
                     Cookie Policy
                   </a>
@@ -93,12 +93,12 @@ export function CookieConsent() {
                   onClick={handleReject}
                   className={cn(
                     "flex-1 lg:flex-none px-4 py-2",
-                    "bg-transparent text-primary-black",
-                    "border border-medium-gray",
+                    "bg-transparent text-pure-white",
+                    "border border-gray-500",
                     "text-sm font-medium",
-                    "hover:bg-light-gray",
+                    "hover:bg-gray-700",
                     "transition-colors duration-200",
-                    "focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2"
+                    "focus:outline-none focus:ring-2 focus:ring-company-gold focus:ring-offset-2"
                   )}
                 >
                   Reject
@@ -107,12 +107,12 @@ export function CookieConsent() {
                   onClick={handleAccept}
                   className={cn(
                     "flex-1 lg:flex-none px-4 py-2",
-                    "bg-accent-blue text-pure-white",
-                    "border border-accent-blue",
+                    "bg-company-gold text-deep-navy",
+                    "border border-company-gold",
                     "text-sm font-medium",
-                    "hover:bg-hover-blue",
+                    "hover:bg-pure-white hover:text-company-gold",
                     "transition-colors duration-200",
-                    "focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2"
+                    "focus:outline-none focus:ring-2 focus:ring-pure-white focus:ring-offset-2"
                   )}
                 >
                   Accept

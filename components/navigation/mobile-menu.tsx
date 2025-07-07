@@ -59,13 +59,18 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
-    } else if (href.startsWith('#') && pathname === '/') {
-      // Anchor links only work on home page
+    } else if (href.startsWith('#')) {
       e.preventDefault()
       onClose()
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+      if (pathname === '/') {
+        // We're on home page, can scroll directly
+        const element = document.querySelector(href)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      } else {
+        // We're on a different page, need to go to home page first
+        window.location.href = `/${href}`
       }
     } else {
       // For navigation between pages, close menu and let default behavior handle it
@@ -79,7 +84,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            className="fixed inset-0 bg-deep-navy bg-opacity-75 z-40 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -91,7 +96,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <motion.div
             className={cn(
               "fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm",
-              "bg-pure-white shadow-2xl lg:hidden",
+              "bg-deep-navy shadow-2xl lg:hidden",
               "flex flex-col"
             )}
             variants={mobileMenuVariants}
@@ -100,10 +105,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             exit="closed"
           >
             {/* Menu Header */}
-            <div className="p-6 border-b border-medium-gray">
+            <div className="p-6 border-b border-company-gold border-opacity-30">
               <Link 
                 href="/" 
-                className="text-xl font-black text-primary-black"
+                className="text-xl font-black text-company-gold"
                 onClick={onClose}
               >
                 {SITE_CONFIG.logo}
@@ -130,10 +135,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         className={cn(
                           "block text-lg font-medium py-2",
                           "transition-colors duration-200",
-                          "hover:text-accent-blue",
+                          "hover:text-company-gold",
                           isActiveNavItem(item.href) ? 
-                            "text-accent-blue" : 
-                            "text-primary-black"
+                            "text-company-gold" : 
+                            "text-pure-white"
                         )}
                       >
                         {item.name}
@@ -147,10 +152,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         className={cn(
                           "block text-lg font-medium py-2",
                           "transition-colors duration-200",
-                          "hover:text-accent-blue",
+                          "hover:text-company-gold",
                           isActiveNavItem(item.href) ? 
-                            "text-accent-blue" : 
-                            "text-primary-black"
+                            "text-company-gold" : 
+                            "text-pure-white"
                         )}
                       >
                         {item.name}
@@ -163,7 +168,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             {/* CTA Section */}
             <motion.div
-              className="p-6 border-t border-medium-gray"
+              className="p-6 border-t border-company-gold border-opacity-30"
               variants={mobileMenuItemVariants}
             >
               <Link
@@ -172,12 +177,12 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 className={cn(
                   "btn-hover w-full",
                   "inline-flex items-center justify-center px-6 py-4",
-                  "bg-primary-black text-pure-white",
-                  "rounded-none border border-primary-black",
+                  "bg-company-gold text-deep-navy",
+                  "rounded-none border border-company-gold",
                   "text-sm font-medium",
-                  "hover:bg-pure-white hover:text-primary-black",
+                  "hover:bg-pure-white hover:text-company-gold",
                   "transition-all duration-300 ease-out",
-                  "focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2"
+                  "focus:outline-none focus:ring-2 focus:ring-pure-white focus:ring-offset-2"
                 )}
               >
                 Submit CV
@@ -186,22 +191,15 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             {/* Contact Info */}
             <motion.div
-              className="p-6 bg-light-gray text-center"
+              className="p-6 bg-deep-navy bg-opacity-50 text-center border-t border-company-gold border-opacity-20"
               variants={mobileMenuItemVariants}
             >
-              <p className="text-sm text-text-gray mb-2">
+              <p className="text-sm text-gray-300 mb-2">
                 Get in touch
               </p>
               <a
-                href={`mailto:${SITE_CONFIG.email}`}
-                className="text-sm font-medium text-primary-black hover:text-accent-blue transition-colors"
-              >
-                {SITE_CONFIG.email}
-              </a>
-              <br />
-              <a
                 href={`tel:${SITE_CONFIG.phone}`}
-                className="text-sm font-medium text-primary-black hover:text-accent-blue transition-colors"
+                className="text-company-gold hover:text-pure-white transition-colors text-sm font-medium"
               >
                 {SITE_CONFIG.phone}
               </a>

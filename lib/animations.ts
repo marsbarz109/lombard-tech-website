@@ -204,14 +204,16 @@ export const logoFadeIn: Variants = {
 // Navbar animation on scroll
 export const navbarScroll: Variants = {
   top: {
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    background: 'transparent',
     backdropFilter: 'blur(0px)',
     borderBottom: '1px solid transparent',
+    boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
   },
   scrolled: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: 'blur(10px)',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+    background: 'linear-gradient(to bottom, rgba(10, 22, 40, 0.85) 0%, rgba(10, 22, 40, 0.65) 70%, rgba(10, 22, 40, 0.2) 100%)',
+    backdropFilter: 'blur(12px)',
+    borderBottom: '1px solid rgba(201, 176, 55, 0.2)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
     transition: {
       duration: 0.3,
       ease: 'easeOut',
