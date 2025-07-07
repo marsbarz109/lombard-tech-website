@@ -24,16 +24,18 @@ export function AboutSection() {
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
         {/* Section Header with Two-Column Layout */}
         <motion.div
-          className="grid lg:grid-cols-2 gap-16 mb-16 items-center"
+          className="grid lg:grid-cols-2 gap-0 mb-16 items-stretch"
           variants={fadeInUp}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Image Placeholder */}
-          <div className="bg-lt-navy/5 aspect-video w-full rounded-lg"></div>
+          {/* Image Placeholder - Full Bleed */}
+          <div className="relative lg:-mx-6 xl:-mx-12 2xl:-mx-24">
+            <div className="h-full bg-lt-navy/10 w-full" />
+          </div>
           
           {/* Content */}
-          <div>
+          <div className="py-12 lg:py-0 lg:pl-16">
             <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-8">
               About Lombard Tech
             </h2>
@@ -58,13 +60,13 @@ export function AboutSection() {
 
         {/* Company Values with Two-Column Layout (Reversed) */}
         <motion.div
-          className="grid lg:grid-cols-2 gap-16 mb-16 items-center"
+          className="grid lg:grid-cols-2 gap-0 mb-16 items-stretch"
           variants={fadeInUp}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Content - Order reversed for visual rhythm */}
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 py-12 lg:py-0 lg:pr-16">
             <h3 className="font-lombard text-3xl text-lt-gold mb-8">
               What We Stand For
             </h3>
@@ -109,8 +111,10 @@ export function AboutSection() {
             </motion.div>
           </div>
           
-          {/* Image Placeholder */}
-          <div className="bg-lt-navy/5 aspect-video w-full rounded-lg order-1 lg:order-2"></div>
+          {/* Image Placeholder - Full Bleed */}
+          <div className="relative lg:-mx-6 xl:-mx-12 2xl:-mx-24 order-1 lg:order-2">
+            <div className="h-full bg-lt-navy/10 w-full" />
+          </div>
         </motion.div>
 
         {/* What We Want to Be Known For */}
