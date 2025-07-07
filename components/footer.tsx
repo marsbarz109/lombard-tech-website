@@ -7,39 +7,43 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-deep-navy text-pure-white">
+    <footer className="bg-lt-navy text-lt-ivory">
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <Link href="/" className="text-2xl font-black mb-4 block text-company-gold">
-              {SITE_CONFIG.logo}
+            <Link href="/" className="hover:opacity-80 transition-opacity mb-4 block">
+              <img 
+                src="/logo.svg" 
+                alt="Lombard Tech" 
+                className="h-8"
+              />
             </Link>
-            <p className="text-gray-300 mb-6 max-w-md">
+            <p className="text-lt-ivory/80 mb-6 max-w-md">
               {SITE_CONFIG.description}
             </p>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-company-gold" />
+                <Mail className="h-4 w-4 text-lt-gold" />
                 <a 
                   href={`mailto:${SITE_CONFIG.email}`}
-                  className="text-gray-300 hover:text-company-gold transition-colors"
+                  className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
                 >
                   {SITE_CONFIG.email}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-company-gold" />
+                <Phone className="h-4 w-4 text-lt-gold" />
                 <a 
                   href={`tel:${SITE_CONFIG.phone}`}
-                  className="text-gray-300 hover:text-company-gold transition-colors"
+                  className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
                 >
                   {SITE_CONFIG.phone}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-company-gold" />
-                <span className="text-gray-300">
+                <MapPin className="h-4 w-4 text-lt-gold" />
+                <span className="text-lt-ivory/80">
                   {SITE_CONFIG.address}
                 </span>
               </div>
@@ -48,13 +52,13 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-company-gold">Navigation</h3>
+            <h3 className="font-lombard text-lg text-lt-gold mb-4">Navigation</h3>
             <ul className="space-y-2">
               {NAVIGATION_ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-gray-300 hover:text-company-gold transition-colors"
+                    className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -65,12 +69,12 @@ export function Footer() {
 
           {/* Legal & Social */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-company-gold">Legal & Social</h3>
+            <h3 className="font-lombard text-lg text-lt-gold mb-4">Legal & Social</h3>
             <ul className="space-y-2 mb-6">
               <li>
                 <Link
                   href="/privacy-policy"
-                  className="text-gray-300 hover:text-company-gold transition-colors"
+                  className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -78,7 +82,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="text-gray-300 hover:text-company-gold transition-colors"
+                  className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -86,7 +90,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/cookie-policy"
-                  className="text-gray-300 hover:text-company-gold transition-colors"
+                  className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
                 >
                   Cookie Policy
                 </Link>
@@ -100,7 +104,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "p-2 bg-gray-800 hover:bg-company-gold",
+                  "p-2 bg-lt-ivory/10 hover:bg-lt-gold",
                   "transition-colors duration-300",
                   "rounded-sm"
                 )}
@@ -113,8 +117,8 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-company-gold border-opacity-30 mt-12 pt-8 text-center">
-          <p className="text-gray-400 text-sm">
+        <div className="border-t border-lt-gold border-opacity-30 mt-12 pt-8 text-center">
+          <p className="text-lt-ivory/60 text-sm">
             © {currentYear} {SITE_CONFIG.name}. All rights reserved.
           </p>
         </div>

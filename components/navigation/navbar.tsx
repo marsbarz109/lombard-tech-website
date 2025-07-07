@@ -101,9 +101,13 @@ export function Navbar() {
           >
             <Link 
               href="/" 
-              className="text-2xl font-black text-company-gold hover:opacity-80 transition-opacity"
+              className="hover:opacity-80 transition-opacity"
             >
-              {SITE_CONFIG.logo}
+              <img 
+                src="/logo.svg" 
+                alt="Lombard Tech" 
+                className="h-12"
+              />
             </Link>
           </motion.div>
 

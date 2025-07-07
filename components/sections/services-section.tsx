@@ -12,7 +12,7 @@ export function ServicesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   return (
-    <section ref={ref} id="services" className="py-24 lg:py-32 bg-pure-white">
+    <section ref={ref} id="services" className="py-24 lg:py-32 bg-lt-navy">
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div
@@ -21,10 +21,10 @@ export function ServicesSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-heading text-company-gold mb-6">
+          <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
             Our Services
           </h2>
-          <p className="large-body text-deep-navy max-w-4xl mx-auto">
+          <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
             Whether you're building new teams, replacing key talent, or expanding into new regions, we provide the clarity, pace, and market knowledge to make it happen. Our recruiters combine hands-on experience with deep networks, helping clients secure the right people without delays or distractions. We work across both contract and permanent hiring models, and can support individual hires or full build-outs. Every brief is approached with care, urgency, and discretion.
           </p>
         </motion.div>
@@ -47,35 +47,35 @@ export function ServicesSection() {
               <motion.div
                 className={cn(
                   "relative overflow-hidden h-48",
-                  "bg-light-gray border border-medium-gray",
-                  "hover:border-company-gold hover:shadow-lg",
+                  "bg-lt-ivory hover:bg-lt-gold/10",
+                  "border border-lt-navy/10 hover:border-lt-gold",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group"
+                  "cursor-pointer group rounded-lg"
                 )}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 {/* Background overlay for hover state */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-deep-navy to-text-gray opacity-0 group-hover:opacity-95 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-br from-lt-navy to-lt-slate opacity-0 group-hover:opacity-95 transition-opacity duration-300"
                 />
                 
                 {/* Default State - Number and Title */}
                 <div className="relative z-10 p-8 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300">
                   {/* Service Number */}
                   <div className="mb-4">
-                    <span className="text-4xl font-black text-company-gold opacity-80">
+                    <span className="text-4xl font-black text-lt-gold opacity-80">
                       {service.id}
                     </span>
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="text-xl font-bold mb-4 text-deep-navy">
+                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {service.title}
                   </h3>
 
                   {/* Hover Indicator */}
-                  <div className="w-8 h-0.5 bg-company-gold" />
+                  <div className="w-8 h-0.5 bg-lt-gold" />
                 </div>
 
                 {/* Hover State - Description */}
@@ -85,14 +85,14 @@ export function ServicesSection() {
                   whileHover={{ opacity: 1 }}
                 >
                   <div className="mb-3">
-                    <span className="text-2xl font-black text-company-gold">
+                    <span className="text-2xl font-black text-lt-gold">
                       {service.id}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-white">
+                  <h3 className="font-lombard text-xl text-lt-ivory mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-white/90 leading-relaxed">
+                  <p className="text-sm text-lt-ivory/90 leading-relaxed">
                     {service.description}
                   </p>
                 </motion.div>
@@ -108,7 +108,7 @@ export function ServicesSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <p className="regular-body text-deep-navy mb-6">
+          <p className="text-lg text-lt-ivory mb-6">
             Ready to find your next opportunity or top talent?
           </p>
           <motion.a
@@ -116,12 +116,12 @@ export function ServicesSection() {
             className={cn(
               "btn-hover",
               "inline-flex items-center px-8 py-4",
-              "bg-company-gold text-deep-navy",
-              "rounded-none border border-company-gold",
+              "bg-lt-gold text-lt-navy",
+              "rounded-none border border-lt-gold",
               "text-sm font-semibold tracking-wide",
-              "hover:bg-pure-white hover:text-company-gold",
+              "hover:bg-lt-ivory hover:text-lt-navy",
               "transition-all duration-300 ease-out",
-              "focus:outline-none focus:ring-2 focus:ring-deep-navy focus:ring-offset-2"
+              "focus:outline-none focus:ring-2 focus:ring-lt-ivory focus:ring-offset-2"
             )}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

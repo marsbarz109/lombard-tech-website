@@ -12,7 +12,7 @@ export function MarketCoverageSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   return (
-    <section ref={ref} id="market-coverage" className="py-24 lg:py-32 bg-deep-navy">
+    <section ref={ref} id="market-coverage" className="py-24 lg:py-32 bg-lt-ivory">
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div
@@ -21,10 +21,10 @@ export function MarketCoverageSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="section-heading text-company-gold mb-6">
+          <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
             Market Coverage
           </h2>
-          <p className="large-body text-pure-white max-w-5xl mx-auto">
+          <p className="text-lg text-lt-slate max-w-5xl mx-auto leading-relaxed">
             We work with a wide range of organisations across the UK and Europe, including VC-backed scale-ups, private equity portfolios, and listed global companies. Our independence gives us full access to the market, with no internal blockers or conflicts of interest.
           </p>
         </motion.div>
@@ -47,46 +47,46 @@ export function MarketCoverageSection() {
               <motion.div
                 className={cn(
                   "relative overflow-hidden h-80",
-                  "bg-pure-white border border-medium-gray",
-                  "hover:border-company-gold",
+                  "bg-lt-ivory hover:bg-lt-gold/10",
+                  "border border-lt-navy/10 hover:border-lt-gold",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group"
+                  "cursor-pointer group rounded-lg"
                 )}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 {/* Background overlay for hover state */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-company-gold to-hover-blue opacity-0 group-hover:opacity-95 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 opacity-0 group-hover:opacity-95 transition-opacity duration-300"
                 />
                 
                 {/* Default State - Title */}
                 <motion.div 
                   className="relative z-10 p-8 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300"
                 >
-                  <h3 className="font-semibold text-2xl mb-4 text-deep-navy">
+                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {area.title}
                   </h3>
-                  <div className="w-12 h-1 bg-company-gold" />
+                  <div className="w-12 h-1 bg-lt-gold" />
                 </motion.div>
 
                 {/* Hover State - Full Information */}
                 <motion.div
-                  className="absolute inset-0 z-20 p-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center"
+                  className="absolute inset-0 z-20 p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                 >
-                  <h3 className="font-semibold text-2xl mb-4 text-deep-navy">
+                  <h3 className="font-lombard text-xl mb-4 text-lt-navy">
                     {area.title}
                   </h3>
-                  <p className="text-base mb-6 text-deep-navy/90 leading-relaxed">
+                  <p className="text-base mb-6 text-lt-navy/90 leading-relaxed">
                     {area.description}
                   </p>
-                  <div className="border-t border-deep-navy/30 pt-4">
-                    <p className="text-sm font-semibold text-deep-navy mb-2">
+                  <div className="border-t border-lt-navy/30 pt-4">
+                    <p className="text-sm font-semibold text-lt-navy mb-2">
                       Roles include:
                     </p>
-                    <p className="text-sm text-deep-navy/80 leading-relaxed">
+                    <p className="text-sm text-lt-navy/80 leading-relaxed">
                       {area.roles}
                     </p>
                   </div>

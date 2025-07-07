@@ -3,15 +3,22 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --primary-black: #000000;
-  --pure-white: #FFFFFF;
+  --lt-navy: #061129;
+  --lt-gold: #D4C49E;
+  --lt-ivory: #FAF9F7;
+  --lt-slate: #64748b;
+  
+  /* Legacy variables for backward compatibility */
+  --primary-black: #061129;
+  --pure-white: #FAF9F7;
   --light-gray: #F8F8F8;
   --medium-gray: #E5E5E5;
-  --text-gray: #666666;
-  --accent-blue: #0066FF;
-  --hover-blue: #0052CC;
+  --text-gray: #64748b;
+  --accent-blue: #D4C49E;
+  --hover-blue: #C2B896;
 }
 
 * {
@@ -29,8 +36,8 @@ body {
 }
 
 body {
-  color: var(--primary-black);
-  background: var(--pure-white);
+  background-color: #FAF9F7;
+  color: #64748b;
 }
 
 a {
@@ -68,8 +75,6 @@ a {
   font-weight: 400;
 }
 
-
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
@@ -83,13 +88,13 @@ a {
 
 /* Custom selection color */
 ::selection {
-  background-color: var(--accent-blue);
-  color: var(--pure-white);
+  background-color: #061129;
+  color: #D4C49E;
 }
 
 /* Focus styles */
 :focus {
-  outline: 2px solid var(--accent-blue);
+  outline: 2px solid var(--lt-gold);
   outline-offset: 2px;
 }
 
@@ -159,4 +164,8 @@ a {
 
 .animate-delay-500 {
   animation-delay: 0.5s;
+}
+
+.animate-delay-600 {
+  animation-delay: 0.6s;
 } 

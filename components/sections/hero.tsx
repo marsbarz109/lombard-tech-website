@@ -4,14 +4,11 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, Upload } from 'lucide-react'
-import { HERO_WORDS, HERO_SPECIALIZATIONS, SITE_CONFIG } from '@/lib/constants'
-import { textReveal, textRevealItem, buttonHover } from '@/lib/animations'
+import { buttonHover } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [currentSpecialization, setCurrentSpecialization] = useState(0)
-  const [isTyping, setIsTyping] = useState(true)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -25,21 +22,8 @@ export function Hero() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Typing animation for specializations
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTyping(false)
-      setTimeout(() => {
-        setCurrentSpecialization((prev) => (prev + 1) % HERO_SPECIALIZATIONS.length)
-        setIsTyping(true)
-      }, 500)
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-pure-white">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-lt-ivory">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -51,81 +35,58 @@ export function Hero() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             filter: 'blur(1.5px)',
-            transform: 'scale(1.05)', // Slight scale to hide any edge artifacts from blur
+            transform: 'scale(1.05)',
           }}
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         
-        {/* Dark Gradient Overlay */}
+        {/* Navy Gradient Overlay */}
         <div 
           className="absolute inset-0 z-10"
           style={{
-            background: 'linear-gradient(to bottom, rgba(10, 22, 40, 0.85) 0%, rgba(10, 22, 40, 0.75) 100%)'
+            background: 'linear-gradient(to bottom, rgba(6, 17, 41, 0.85) 0%, rgba(6, 17, 41, 0.75) 100%)'
           }}
         />
       </div>
 
-      {/* Subtle parallax background - now with reduced opacity since we have video */}
+      {/* Radial gradient cursor parallax background with lt-gold */}
       <div 
-        className="absolute inset-0 z-20 opacity-3"
+        className="absolute inset-0 z-20"
         style={{
-          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, #0066FF 0%, transparent 50%)`,
+          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(212, 196, 158, 0.15) 0%, transparent 50%)`,
           transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`,
         }}
       />
 
       <div className="relative z-30 max-w-screen-2xl mx-auto px-6 lg:px-12 text-center">
         {/* Main Headline */}
-        <motion.div
-          className="mb-8"
-          variants={textReveal}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="overflow-hidden">
-            <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-black text-pure-white leading-tight mb-4 drop-shadow-lg"
-              variants={textRevealItem}
-            >
-              Lombard Tech
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden">
-            <motion.div
-              className="text-2xl md:text-3xl lg:text-4xl font-medium text-accent-blue leading-tight mb-8 drop-shadow-md"
-              variants={textRevealItem}
-            >
-              Decisive hiring, delivered with clarity and integrity.
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Subtitle */}
-        <motion.div
-          className="mb-12 max-w-3xl mx-auto"
+        <motion.h1
+          className="font-lombard text-7xl sm:text-8xl text-lt-gold tracking-tight drop-shadow mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <p className="large-body text-pure-white mb-6 drop-shadow-md">
-            {SITE_CONFIG.description}
-          </p>
-          <p className="regular-body text-gray-200 drop-shadow-sm">
-            Our recruiters are experienced, well-connected, and focused on results. We work across Infrastructure and Cloud, Cybersecurity, Data, and Software Development — covering both contract and permanent hiring, from hands-on roles to leadership.
-          </p>
-          <p className="regular-body text-gray-200 mt-4 drop-shadow-sm">
-            As a specialist, independent firm, we operate with minimal off-limits, giving clients broad access to the market and faster results.
-          </p>
-        </motion.div>
+          Lombard Tech
+        </motion.h1>
+
+        {/* Motto Line - Fades in 0.6s after H1 */}
+        <motion.p
+          className="font-lombard text-xl sm:text-2xl text-lt-gold italic mb-12 drop-shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
+        >
+          Decisive hiring, delivered with clarity and integrity
+        </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
         >
           {/* Primary CTA */}
           <motion.div
@@ -139,12 +100,12 @@ export function Hero() {
               className={cn(
                 "btn-hover group",
                 "inline-flex items-center px-8 py-4",
-                "bg-company-gold text-deep-navy",
-                "rounded-none border border-company-gold",
+                "bg-lt-gold text-lt-navy",
+                "rounded-none border border-lt-gold",
                 "text-sm font-semibold tracking-wide",
-                "hover:bg-pure-white hover:text-company-gold",
+                "hover:bg-lt-ivory hover:text-lt-navy",
                 "transition-all duration-300 ease-out",
-                "focus:outline-none focus:ring-2 focus:ring-pure-white focus:ring-offset-2",
+                "focus:outline-none focus:ring-2 focus:ring-lt-ivory focus:ring-offset-2",
                 "shadow-lg hover:shadow-xl"
               )}
             >
@@ -165,12 +126,12 @@ export function Hero() {
               className={cn(
                 "group",
                 "inline-flex items-center px-8 py-4",
-                "bg-transparent text-pure-white",
-                "rounded-none border border-pure-white",
+                "bg-transparent text-lt-ivory",
+                "rounded-none border border-lt-ivory",
                 "text-sm font-semibold tracking-wide",
-                "hover:bg-pure-white hover:text-deep-navy",
+                "hover:bg-lt-ivory hover:text-lt-navy",
                 "transition-all duration-300 ease-out",
-                "focus:outline-none focus:ring-2 focus:ring-company-gold focus:ring-offset-2",
+                "focus:outline-none focus:ring-2 focus:ring-lt-gold focus:ring-offset-2",
                 "shadow-lg hover:shadow-xl"
               )}
             >
@@ -179,13 +140,11 @@ export function Hero() {
             </Link>
           </motion.div>
         </motion.div>
-
-
       </div>
 
-      {/* Decorative Elements - now with white/light colors for contrast */}
-      <div className="absolute top-1/4 left-8 w-1 h-16 bg-pure-white opacity-30 z-40" />
-      <div className="absolute bottom-1/4 right-8 w-1 h-16 bg-pure-white opacity-30 z-40" />
+      {/* Decorative Elements */}
+      <div className="absolute top-1/4 left-8 w-1 h-16 bg-lt-ivory opacity-30 z-40" />
+      <div className="absolute bottom-1/4 right-8 w-1 h-16 bg-lt-ivory opacity-30 z-40" />
     </section>
   )
 } 
