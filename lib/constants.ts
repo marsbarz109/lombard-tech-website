@@ -19,43 +19,29 @@ export const NAVIGATION_ITEMS = [
   { name: 'Market Coverage', href: '#market-coverage' },
   { name: 'Our Services', href: '#services' },
   { name: 'Candidates', href: '#candidates' },
+  { name: 'Join Us', href: '#join-us' },
   { name: 'Contact', href: '/contact' },
 ] as const
 
 export const SERVICES = [
   {
     id: '01',
-    title: 'Executive Search',
-    description: 'Leadership recruitment for C-level and senior technical roles, where discretion and precision matter most.',
+    title: 'Permanent Hiring',
+    description: 'Full-time recruitment across all technical disciplines, from individual contributor roles to senior leadership positions.',
   },
   {
     id: '02',
-    title: 'Technology Recruitment',
-    description: 'Search and delivery across core technical disciplines including software engineering, cloud, data, and cyber.',
-  },
-  {
-    id: '03',
-    title: 'Contract Staffing',
+    title: 'Contract Hiring',
     description: 'Flexible contractor support for project delivery, urgent cover, or interim transformation roles.',
   },
   {
-    id: '04',
-    title: 'Talent Consulting',
-    description: 'Strategic hiring advice, workforce planning, and market insight to support internal talent teams and decision-makers.',
-  },
-  {
-    id: '05',
-    title: 'Statement of Work (SoW)',
+    id: '03',
+    title: 'Statement of Works',
     description: 'Defined-outcome project delivery, giving clients control over scope, cost, and timelines without the overhead of permanent hires.',
   },
 ] as const
 
 export const MARKET_COVERAGE = [
-  {
-    title: 'Software Engineering',
-    description: 'We place engineers across the full stack, from application architecture to front-end delivery.',
-    roles: 'Software Developer, Front End Engineer, Back End Engineer, Full Stack Developer, Engineering Manager, Tech Lead'
-  },
   {
     title: 'Data Science & Analytics',
     description: 'We help businesses unlock insights and build data capability with the right people.',
@@ -72,16 +58,6 @@ export const MARKET_COVERAGE = [
     roles: 'DevOps Engineer, Cloud Engineer, Cloud Architect, Platform Engineer, Site Reliability Engineer'
   },
   {
-    title: 'Product Management',
-    description: 'We help clients build high-performance product teams aligned with business and user goals.',
-    roles: 'Product Manager, Product Owner, Head of Product, Technical Product Manager'
-  },
-  {
-    title: 'Digital Marketing',
-    description: 'We place digital and growth talent across B2B and B2C businesses.',
-    roles: 'Digital Marketing Manager, Performance Marketing Lead, SEO/SEM Specialist, CRM Manager'
-  },
-  {
     title: 'UX/UI Design',
     description: 'We support the design function with talent that balances creativity and usability.',
     roles: 'UX Designer, UI Designer, Design Lead, User Researcher'
@@ -90,6 +66,11 @@ export const MARKET_COVERAGE = [
     title: 'Engineering Leadership',
     description: 'We deliver senior leadership across engineering, transformation, and technical strategy.',
     roles: 'CTO, VP Engineering, Head of Engineering, Director of Software, Programme Director'
+  },
+  {
+    title: 'Future Markets',
+    description: 'Emerging technology roles and forward-thinking positions that drive innovation and digital transformation.',
+    roles: 'AI/ML Engineer, Blockchain Developer, IoT Specialist, Quantum Computing Researcher, AR/VR Developer'
   },
 ] as const
 

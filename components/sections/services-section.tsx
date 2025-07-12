@@ -25,7 +25,7 @@ export function ServicesSection() {
             Our Services
           </h2>
           <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
-            Whether you're building new teams, replacing key talent, or expanding into new regions, we provide the clarity, pace, and market knowledge to make it happen. Our recruiters combine hands-on experience with deep networks, helping clients secure the right people without delays or distractions. We work across both contract and permanent hiring models, and can support individual hires or full build-outs. Every brief is approached with care, urgency, and discretion.
+            Whether you're building new teams, replacing key talent, or expanding into new regions, we bring practical insight, proven delivery, and strong market knowledge to make it happen. Our recruiters combine hands-on experience with deep networks, helping clients secure the right people with focus and efficiency. We work across both contract and permanent hiring models and can support individual hires or full build-outs. Every brief is approached with care, urgency, and discretion.
           </p>
         </motion.div>
 

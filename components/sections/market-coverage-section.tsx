@@ -12,7 +12,7 @@ export function MarketCoverageSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   return (
-    <section ref={ref} id="market-coverage" className="py-24 lg:py-32 bg-lt-ivory">
+    <section ref={ref} id="market-coverage" className="py-24 lg:py-32 bg-lt-navy">
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div
@@ -24,8 +24,8 @@ export function MarketCoverageSection() {
           <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
             Market Coverage
           </h2>
-          <p className="text-lg text-lt-slate max-w-5xl mx-auto leading-relaxed">
-            We work with a wide range of organisations across the UK and Europe, including VC-backed scale-ups, private equity portfolios, and listed global companies. Our independence gives us full access to the market, with no internal blockers or conflicts of interest.
+          <p className="text-lg text-lt-ivory max-w-5xl mx-auto leading-relaxed">
+            We partner with organisations across Europe, from VC-backed scale-ups to listed multinationals, typically in sectors where technical capability underpins competitive advantage. Our focus is on delivering hard-to-find talent into high growth, high demand environments.
           </p>
         </motion.div>
 
@@ -47,8 +47,8 @@ export function MarketCoverageSection() {
               <motion.div
                 className={cn(
                   "relative overflow-hidden h-80",
-                  "bg-lt-ivory hover:bg-lt-gold/10",
-                  "border border-lt-navy/10 hover:border-lt-gold",
+                  "bg-lt-navy hover:bg-lt-gold/10",
+                  "border border-lt-gold/20 hover:border-lt-gold",
                   "transition-all duration-300 ease-out",
                   "cursor-pointer group rounded-lg"
                 )}
@@ -64,7 +64,7 @@ export function MarketCoverageSection() {
                 <motion.div 
                   className="relative z-10 p-8 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300"
                 >
-                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
+                  <h3 className="font-lombard text-xl text-lt-ivory mb-4">
                     {area.title}
                   </h3>
                   <div className="w-12 h-1 bg-lt-gold" />

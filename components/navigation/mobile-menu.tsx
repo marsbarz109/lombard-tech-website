@@ -84,7 +84,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-deep-navy bg-opacity-75 z-40 lg:hidden"
+            className="fixed inset-0 bg-lt-navy bg-opacity-75 z-40 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -96,7 +96,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <motion.div
             className={cn(
               "fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm",
-              "bg-deep-navy shadow-2xl lg:hidden",
+              "bg-lt-navy shadow-2xl lg:hidden",
               "flex flex-col"
             )}
             variants={mobileMenuVariants}
@@ -105,10 +105,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             exit="closed"
           >
             {/* Menu Header */}
-            <div className="p-6 border-b border-company-gold border-opacity-30">
+            <div className="p-6 border-b border-lt-gold border-opacity-30">
               <Link 
                 href="/" 
-                className="text-xl font-black text-company-gold"
+                className="text-xl font-black text-lt-gold"
                 onClick={onClose}
               >
                 {SITE_CONFIG.logo}
@@ -135,10 +135,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         className={cn(
                           "block text-lg font-medium py-2",
                           "transition-colors duration-200",
-                          "hover:text-company-gold",
+                          "hover:text-lt-gold",
                           isActiveNavItem(item.href) ? 
-                            "text-company-gold" : 
-                            "text-pure-white"
+                            "text-lt-gold" : 
+                            "text-lt-ivory"
                         )}
                       >
                         {item.name}
@@ -152,10 +152,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         className={cn(
                           "block text-lg font-medium py-2",
                           "transition-colors duration-200",
-                          "hover:text-company-gold",
+                          "hover:text-lt-gold",
                           isActiveNavItem(item.href) ? 
-                            "text-company-gold" : 
-                            "text-pure-white"
+                            "text-lt-gold" : 
+                            "text-lt-ivory"
                         )}
                       >
                         {item.name}
@@ -168,7 +168,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             {/* CTA Section */}
             <motion.div
-              className="p-6 border-t border-company-gold border-opacity-30"
+              className="p-6 border-t border-lt-gold border-opacity-30"
               variants={mobileMenuItemVariants}
             >
               <Link
@@ -177,12 +177,12 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 className={cn(
                   "btn-hover w-full",
                   "inline-flex items-center justify-center px-6 py-4",
-                  "bg-company-gold text-deep-navy",
-                  "rounded-none border border-company-gold",
+                  "bg-lt-gold text-lt-navy",
+                  "rounded-none border border-lt-gold",
                   "text-sm font-medium",
-                  "hover:bg-pure-white hover:text-company-gold",
+                  "hover:bg-lt-ivory hover:text-lt-navy",
                   "transition-all duration-300 ease-out",
-                  "focus:outline-none focus:ring-2 focus:ring-pure-white focus:ring-offset-2"
+                  "focus:outline-none focus:ring-2 focus:ring-lt-ivory focus:ring-offset-2"
                 )}
               >
                 Submit CV
@@ -191,17 +191,17 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             {/* Contact Info */}
             <motion.div
-              className="p-6 bg-deep-navy bg-opacity-50 text-center border-t border-company-gold border-opacity-20"
+              className="p-6 bg-lt-navy bg-opacity-50 text-center border-t border-lt-gold border-opacity-20"
               variants={mobileMenuItemVariants}
             >
-              <p className="text-sm text-gray-300 mb-2">
+              <p className="text-sm text-lt-ivory/80 mb-2">
                 Get in touch
               </p>
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
-                className="text-company-gold hover:text-pure-white transition-colors text-sm font-medium"
+                href={`mailto:${SITE_CONFIG.email}`}
+                className="text-lt-gold hover:text-lt-ivory transition-colors duration-200"
               >
-                {SITE_CONFIG.phone}
+                {SITE_CONFIG.email}
               </a>
             </motion.div>
           </motion.div>

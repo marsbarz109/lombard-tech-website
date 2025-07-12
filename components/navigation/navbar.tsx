@@ -80,13 +80,19 @@ export function Navbar() {
     // For other cases (navigation between pages), let the default behavior handle it
   }
 
+  // Check if we're on the home page in the hero section
+  const isOnHeroSection = pathname === '/' && (activeSection === 'home' || activeSection === '') && !isScrolled
+
   return (
     <>
       <motion.header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 px-6 py-4 lg:px-8",
           "transition-all duration-300 ease-out",
-          isScrolled ? "bg-deep-navy/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+          // Only transparent on hero section of home page, solid navy everywhere else
+          isOnHeroSection ? 
+            "bg-transparent" : 
+            "bg-lt-navy shadow-lg"
         )}
         variants={navbarScroll}
         animate={isScrolled ? 'scrolled' : 'top'}
@@ -125,12 +131,12 @@ export function Navbar() {
                     href={item.href}
                     className={cn(
                       "relative text-sm font-medium transition-colors duration-200",
-                      "hover:text-company-gold",
+                      "hover:text-lt-gold/80",
                       "after:absolute after:bottom-0 after:left-0 after:h-0.5",
-                      "after:bg-company-gold after:transition-all after:duration-300",
+                      "after:bg-lt-gold after:transition-all after:duration-300",
                       isActiveNavItem(item.href) ? 
-                        "text-company-gold after:w-full" : 
-                        "text-pure-white after:w-0 hover:after:w-full"
+                        "text-white after:w-full" : 
+                        "text-lt-gold after:w-0 hover:after:w-full"
                     )}
                     onClick={(e) => {
                       handleNavClick(item.href, e)
@@ -143,12 +149,12 @@ export function Navbar() {
                     href={item.href}
                     className={cn(
                       "relative text-sm font-medium transition-colors duration-200",
-                      "hover:text-company-gold",
+                      "hover:text-lt-gold/80",
                       "after:absolute after:bottom-0 after:left-0 after:h-0.5",
-                      "after:bg-company-gold after:transition-all after:duration-300",
+                      "after:bg-lt-gold after:transition-all after:duration-300",
                       isActiveNavItem(item.href) ? 
-                        "text-company-gold after:w-full" : 
-                        "text-pure-white after:w-0 hover:after:w-full"
+                        "text-white after:w-full" : 
+                        "text-lt-gold after:w-0 hover:after:w-full"
                     )}
                     onClick={(e) => {
                       handleNavClick(item.href, e)
@@ -173,12 +179,12 @@ export function Navbar() {
                 className={cn(
                   "btn-hover",
                   "inline-flex items-center px-6 py-3",
-                  "bg-company-gold text-deep-navy",
-                  "rounded-none border border-company-gold",
+                  "bg-lt-gold text-lt-navy",
+                  "rounded-none border border-lt-gold",
                   "text-sm font-medium",
-                  "hover:bg-pure-white hover:text-company-gold",
+                  "hover:bg-lt-ivory hover:text-lt-navy",
                   "transition-all duration-300 ease-out",
-                  "focus:outline-none focus:ring-2 focus:ring-pure-white focus:ring-offset-2",
+                  "focus:outline-none focus:ring-2 focus:ring-lt-ivory focus:ring-offset-2",
                   "shadow-md"
                 )}
               >
@@ -193,8 +199,8 @@ export function Navbar() {
               onClick={toggleMobileMenu}
               className={cn(
                 "p-2 rounded-md",
-                "hover:bg-company-gold hover:bg-opacity-20 transition-colors",
-                "focus:outline-none focus:ring-2 focus:ring-company-gold"
+                "hover:bg-lt-gold hover:bg-opacity-20 transition-colors",
+                "focus:outline-none focus:ring-2 focus:ring-lt-gold"
               )}
               aria-label="Toggle mobile menu"
               whileTap={{ scale: 0.95 }}
@@ -208,7 +214,7 @@ export function Navbar() {
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <X className="h-6 w-6 text-pure-white" />
+                    <X className="h-6 w-6 text-lt-ivory" />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -218,7 +224,7 @@ export function Navbar() {
                     exit={{ rotate: -90, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <Menu className="h-6 w-6 text-pure-white" />
+                    <Menu className="h-6 w-6 text-lt-ivory" />
                   </motion.div>
                 )}
               </AnimatePresence>

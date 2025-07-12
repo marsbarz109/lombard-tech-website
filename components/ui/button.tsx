@@ -10,24 +10,24 @@ export interface ButtonProps extends HTMLMotionProps<'button'> {
 
 const buttonVariants = {
   primary: [
-    'bg-company-gold text-deep-navy',
-    'border border-company-gold',
-    'hover:bg-pure-white hover:text-company-gold',
+    'bg-lt-gold text-lt-navy',
+    'border border-lt-gold',
+    'hover:bg-lt-ivory hover:text-lt-navy',
   ],
   secondary: [
-    'bg-deep-navy text-pure-white',
-    'border border-deep-navy',
-    'hover:bg-company-gold hover:text-deep-navy',
+    'bg-lt-navy text-lt-ivory',
+    'border border-lt-navy',
+    'hover:bg-lt-gold hover:text-lt-navy',
   ],
   outline: [
-    'bg-transparent text-deep-navy',
-    'border border-deep-navy',
-    'hover:bg-deep-navy hover:text-pure-white',
+    'bg-transparent text-lt-ivory',
+    'border border-lt-ivory',
+    'hover:bg-lt-ivory hover:text-lt-navy',
   ],
   ghost: [
-    'bg-transparent text-deep-navy',
+    'bg-transparent text-lt-ivory',
     'border border-transparent',
-    'hover:bg-light-gray',
+    'hover:bg-lt-gold/10',
   ],
 }
 
@@ -46,9 +46,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'btn-hover',
           'inline-flex items-center justify-center',
           'font-semibold tracking-wide',
-          'rounded-none',
+          'rounded-lg',
           'transition-all duration-300 ease-out',
-          'focus:outline-none focus:ring-2 focus:ring-company-gold focus:ring-offset-2',
+          'focus:outline-none focus:ring-2 focus:ring-lt-gold focus:ring-offset-2 focus:ring-offset-lt-navy',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           buttonVariants[variant],
           sizeVariants[size],

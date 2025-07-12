@@ -1,9 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Upload } from 'lucide-react'
 import { buttonHover } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 
@@ -34,11 +32,11 @@ export function Hero() {
           disablePictureInPicture
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            filter: 'blur(1.5px)',
+            filter: 'blur(0.5px)',
             transform: 'scale(1.05)',
           }}
         >
-          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          <source src="/videos/hero-video-hd.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         
@@ -61,17 +59,21 @@ export function Hero() {
       />
 
       <div className="relative z-30 max-w-screen-2xl mx-auto px-6 lg:px-12 text-center">
-        {/* Main Headline */}
-        <motion.h1
-          className="font-lombard text-7xl sm:text-8xl text-lt-gold tracking-tight drop-shadow mb-6"
+        {/* Logo */}
+        <motion.div
+          className="mb-1"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          Lombard Tech
-        </motion.h1>
+          <img 
+            src="/lombard-tech-logo.png" 
+            alt="Lombard Tech"
+            className="mx-auto max-w-[300px] sm:max-w-[450px] w-full h-auto drop-shadow-lg"
+          />
+        </motion.div>
 
-        {/* Motto Line - Fades in 0.6s after H1 */}
+        {/* Motto Line - Fades in 0.6s after logo */}
         <motion.p
           className="font-lombard text-xl sm:text-2xl text-lt-gold italic mb-12 drop-shadow-sm"
           initial={{ opacity: 0, y: 20 }}
@@ -80,66 +82,6 @@ export function Hero() {
         >
           Decisive hiring, delivered with clarity and integrity
         </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-        >
-          {/* Primary CTA */}
-          <motion.div
-            variants={buttonHover}
-            initial="initial"
-            whileHover="hover"
-            whileTap="tap"
-          >
-            <Link
-              href="#services"
-              className={cn(
-                "btn-hover group",
-                "inline-flex items-center px-8 py-4",
-                "bg-lt-gold text-lt-navy",
-                "rounded-none border border-lt-gold",
-                "text-sm font-semibold tracking-wide",
-                "hover:bg-lt-ivory hover:text-lt-navy",
-                "transition-all duration-300 ease-out",
-                "focus:outline-none focus:ring-2 focus:ring-lt-ivory focus:ring-offset-2",
-                "shadow-lg hover:shadow-xl"
-              )}
-            >
-              Explore Our Services
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
-
-          {/* Secondary CTA */}
-          <motion.div
-            variants={buttonHover}
-            initial="initial"
-            whileHover="hover"
-            whileTap="tap"
-          >
-            <Link
-              href="/contact"
-              className={cn(
-                "group",
-                "inline-flex items-center px-8 py-4",
-                "bg-transparent text-lt-ivory",
-                "rounded-none border border-lt-ivory",
-                "text-sm font-semibold tracking-wide",
-                "hover:bg-lt-ivory hover:text-lt-navy",
-                "transition-all duration-300 ease-out",
-                "focus:outline-none focus:ring-2 focus:ring-lt-gold focus:ring-offset-2",
-                "shadow-lg hover:shadow-xl"
-              )}
-            >
-              <Upload className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-              Submit Your CV
-            </Link>
-          </motion.div>
-        </motion.div>
       </div>
 
       {/* Decorative Elements */}

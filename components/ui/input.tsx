@@ -33,12 +33,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={cn(
             'block w-full px-4 py-4',
-            'bg-pure-white border border-medium-gray',
-            'text-deep-navy placeholder-transparent',
-            'focus:border-company-gold focus:outline-none',
+            'bg-lt-navy border border-lt-gold/20',
+            'text-lt-ivory placeholder-transparent',
+            'focus:border-lt-gold focus:outline-none',
             'transition-all duration-200 ease-out',
-            'peer',
-            error && 'border-red-500 focus:border-red-500',
+            'peer rounded-lg',
+            error && 'border-red-400 focus:border-red-400',
             className
           )}
           placeholder={label || ''}
@@ -53,11 +53,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             htmlFor={inputId}
             className={cn(
               'absolute left-4 transition-all duration-200 ease-out',
-              'text-text-gray pointer-events-none',
+              'text-lt-ivory/70 pointer-events-none',
               'peer-placeholder-shown:top-4 peer-placeholder-shown:text-base',
-              'peer-focus:top-2 peer-focus:text-xs peer-focus:text-company-gold',
-              (isFocused || hasValue || props.value) && 'top-2 text-xs text-company-gold',
-              error && 'peer-focus:text-red-500'
+              'peer-focus:top-2 peer-focus:text-xs peer-focus:text-lt-gold',
+              (isFocused || hasValue || props.value) && 'top-2 text-xs text-lt-gold',
+              error && 'peer-focus:text-red-400'
             )}
             animate={{
               y: (isFocused || hasValue || props.value) ? 0 : 8,
@@ -65,13 +65,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             }}
             transition={{ duration: 0.2 }}
           >
-            {label}
+            {label} {props.required && '*'}
           </motion.label>
         )}
         
         {error && (
           <motion.p
-            className="mt-2 text-sm text-red-500"
+            className="mt-2 text-sm text-red-400"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
