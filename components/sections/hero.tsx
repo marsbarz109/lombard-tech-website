@@ -156,7 +156,6 @@ export function Hero() {
           ref={videoRef}
           autoPlay
           muted
-          defaultMuted
           loop
           playsInline
           disablePictureInPicture
@@ -166,7 +165,7 @@ export function Hero() {
           onCanPlay={handleVideoLoad}
           onLoadedData={handleVideoLoad}
           onLoadedMetadata={handleVideoLoad}
-          webkit-playsinline="true"
+          webkitPlaysinline={true}
           x-webkit-airplay="deny"
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
