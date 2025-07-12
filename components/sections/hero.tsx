@@ -165,8 +165,6 @@ export function Hero() {
           onCanPlay={handleVideoLoad}
           onLoadedData={handleVideoLoad}
           onLoadedMetadata={handleVideoLoad}
-          webkitPlaysinline={true}
-          x-webkit-airplay="deny"
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
             videoLoaded ? "opacity-100" : "opacity-0"
