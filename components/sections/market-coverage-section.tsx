@@ -23,12 +23,14 @@ export function MarketCoverageSection() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const handleCardInteraction = (index: number) => {
+  const handleCardClick = (index: number) => {
     if (isMobile) {
-      // On mobile, toggle the active card
       setActiveCard(activeCard === index ? null : index)
-    } else {
-      // On desktop, use hover
+    }
+  }
+
+  const handleCardHover = (index: number) => {
+    if (!isMobile) {
       setHoveredCard(index)
     }
   }
@@ -39,7 +41,7 @@ export function MarketCoverageSection() {
     }
   }
 
-  const isCardActive = (index: number) => {
+  const isCardRevealed = (index: number) => {
     return isMobile ? activeCard === index : hoveredCard === index
   }
 
@@ -56,85 +58,99 @@ export function MarketCoverageSection() {
           <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
             Market Coverage
           </h2>
-          <p className="text-lg text-lt-ivory max-w-5xl mx-auto leading-relaxed">
-            We partner with organisations across Europe, from VC-backed scale-ups to listed multinationals, typically in sectors where technical capability underpins competitive advantage. Our focus is on delivering hard-to-find talent into high growth, high demand environments.
+          <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
+            We know our markets inside and out. Whether you're looking to hire or seeking a new opportunity, we have the contacts, knowledge, and track record to deliver. Our expertise spans multiple financial services sectors, with deep networks built over years of successful placements.
           </p>
         </motion.div>
 
-        {/* Coverage Grid */}
+        {/* Market Coverage Grid */}
         <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {MARKET_COVERAGE.map((area, index) => (
+          {MARKET_COVERAGE.map((market, index) => (
             <motion.div
-              key={index}
+              key={market.id}
               variants={staggerItem}
-              className="group relative"
-              onMouseEnter={() => handleCardInteraction(index)}
+              className={cn("group relative", isMobile && "touch-manipulation")}
+              onMouseEnter={() => handleCardHover(index)}
               onMouseLeave={handleCardLeave}
-              onClick={() => handleCardInteraction(index)}
+              onClick={() => handleCardClick(index)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
               <motion.div
                 className={cn(
-                  "relative overflow-hidden h-80",
-                  "bg-lt-navy hover:bg-lt-gold/10",
-                  "border border-lt-gold/20 hover:border-lt-gold",
+                  "relative overflow-hidden h-48",
+                  "bg-lt-navy border border-lt-gold/20",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group rounded-lg",
-                  isCardActive(index) && "bg-lt-gold/10 border-lt-gold"
+                  "cursor-pointer rounded-lg",
+                  // Mobile: use explicit active state
+                  isMobile && isCardRevealed(index) && "bg-lt-gold/10 border-lt-gold",
+                  // Desktop: use hover states
+                  !isMobile && "hover:bg-lt-gold/10 hover:border-lt-gold"
                 )}
-                whileHover={{ scale: 1.02 }}
+                whileHover={!isMobile ? { scale: 1.02 } : {}}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 {/* Background overlay for hover/active state */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 transition-opacity duration-300",
-                    isCardActive(index) ? "opacity-95" : "opacity-0 group-hover:opacity-95"
+                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80",
+                    "transition-opacity duration-300",
+                    // Mobile: show/hide based on active state
+                    isMobile && isCardRevealed(index) ? "opacity-95" : 
+                    isMobile ? "opacity-0" :
+                    // Desktop: show/hide based on hover
+                    "opacity-0 group-hover:opacity-95"
                   )}
                 />
                 
-                {/* Default State - Title */}
-                <motion.div 
-                  className={cn(
-                    "relative z-10 p-8 h-full flex flex-col justify-center transition-opacity duration-300",
-                    isCardActive(index) ? "opacity-0" : "opacity-100 group-hover:opacity-0"
-                  )}
-                >
-                  <h3 className="font-lombard text-xl text-lt-ivory mb-4">
-                    {area.title}
+                {/* Default State - Title Only */}
+                <div className={cn(
+                  "relative z-10 p-6 h-full flex flex-col justify-center",
+                  "transition-opacity duration-300",
+                  // Mobile: hide when active
+                  isMobile && isCardRevealed(index) ? "opacity-0" :
+                  isMobile ? "opacity-100" :
+                  // Desktop: hide on hover
+                  "opacity-100 group-hover:opacity-0"
+                )}>
+                  <h3 className={cn(
+                    "font-lombard text-xl text-lt-ivory mb-4",
+                    !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
+                  )}>
+                    {market.title}
                   </h3>
-                  <div className="w-12 h-1 bg-lt-gold" />
-                </motion.div>
+                  <div className="w-8 h-0.5 bg-lt-gold" />
+                </div>
 
-                {/* Hover/Active State - Full Information */}
+                {/* Hover/Active State - Description */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 z-20 p-8 transition-opacity duration-300 flex flex-col justify-center",
-                    isCardActive(index) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    "absolute inset-0 z-20 p-6 flex flex-col justify-center",
+                    "transition-opacity duration-300",
+                    // Mobile: show when active
+                    isMobile && isCardRevealed(index) ? "opacity-100" :
+                    isMobile ? "opacity-0" :
+                    // Desktop: show on hover
+                    "opacity-0 group-hover:opacity-100"
                   )}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: isCardActive(index) ? 1 : 0 }}
+                  animate={{ opacity: isCardRevealed(index) ? 1 : 0 }}
                 >
-                  <h3 className="font-lombard text-xl mb-4 text-lt-navy">
-                    {area.title}
+                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
+                    {market.title}
                   </h3>
-                  <p className="text-base mb-6 text-lt-navy/90 leading-relaxed">
-                    {area.description}
+                  <p className="text-sm text-lt-navy/90 leading-relaxed">
+                    {market.description}
                   </p>
-                  <div className="border-t border-lt-navy/30 pt-4">
-                    <p className="text-sm font-semibold text-lt-navy mb-2">
-                      Roles include:
-                    </p>
-                    <p className="text-sm text-lt-navy/80 leading-relaxed">
-                      {area.roles}
-                    </p>
-                  </div>
-                  {isMobile && (
+                  {isMobile && isCardRevealed(index) && (
                     <button
                       className="mt-4 text-xs text-lt-navy/70 underline self-end"
                       onClick={(e) => {
@@ -149,6 +165,35 @@ export function MarketCoverageSection() {
               </motion.div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <p className="text-lg text-lt-ivory mb-6">
+            Discover opportunities in your specialist market
+          </p>
+          <motion.a
+            href="/contact"
+            className={cn(
+              "btn-hover",
+              "inline-flex items-center px-8 py-4",
+              "bg-lt-gold text-lt-navy",
+              "rounded-none border border-lt-gold",
+              "text-sm font-semibold tracking-wide",
+              "hover:bg-lt-ivory hover:text-lt-navy",
+              "transition-all duration-300 ease-out",
+              "focus:outline-none focus:ring-2 focus:ring-lt-ivory focus:ring-offset-2"
+            )}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Get Started
+          </motion.a>
         </motion.div>
       </div>
     </section>

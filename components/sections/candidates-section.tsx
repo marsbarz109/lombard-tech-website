@@ -24,12 +24,14 @@ export function CandidatesSection() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const handleCardInteraction = (index: number) => {
+  const handleCardClick = (index: number) => {
     if (isMobile) {
-      // On mobile, toggle the active card
       setActiveCard(activeCard === index ? null : index)
-    } else {
-      // On desktop, use hover
+    }
+  }
+
+  const handleCardHover = (index: number) => {
+    if (!isMobile) {
       setHoveredCard(index)
     }
   }
@@ -40,7 +42,7 @@ export function CandidatesSection() {
     }
   }
 
-  const isCardActive = (index: number) => {
+  const isCardRevealed = (index: number) => {
     return isMobile ? activeCard === index : hoveredCard === index
   }
 
@@ -55,37 +57,28 @@ export function CandidatesSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
-            Candidates
+            For Candidates
           </h2>
           <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
-            We know what it's like to be a candidate. The market is busy, roles are often poorly defined, and it's hard to know who to trust. We aim to change that by being transparent, straightforward, and genuinely helpful — whether you're actively looking or just want to understand your options.
+            We work with top-tier candidates across financial services to deliver long-term career moves. Our approach focuses on understanding your goals, leveraging our market knowledge, and connecting you with opportunities that match your ambitions.
           </p>
-          <div className="flex justify-center mt-12">
-            <a
-              href="/contact"
-              className="inline-flex items-center px-8 py-4 bg-transparent text-lt-ivory border border-lt-ivory text-sm font-semibold tracking-wide hover:bg-lt-ivory hover:text-lt-navy transition-all duration-300"
-            >
-              <MessageSquare className="mr-2 h-4 w-4" />
-              Start a Conversation
-            </a>
-          </div>
         </motion.div>
 
-        {/* Candidate Services Grid */}
+        {/* Services Grid */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {CANDIDATE_SERVICES.map((service, index) => (
             <motion.div
-              key={index}
-              className="group relative"
+              key={service.id}
               variants={staggerItem}
-              onMouseEnter={() => handleCardInteraction(index)}
+              className={cn("group relative", isMobile && "touch-manipulation")}
+              onMouseEnter={() => handleCardHover(index)}
               onMouseLeave={handleCardLeave}
-              onClick={() => handleCardInteraction(index)}
+              onClick={() => handleCardClick(index)}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -93,54 +86,83 @@ export function CandidatesSection() {
             >
               <motion.div
                 className={cn(
-                  "relative overflow-hidden h-32",
-                  "bg-lt-navy hover:bg-lt-gold/10",
-                  "border border-lt-gold/20 hover:border-lt-gold",
+                  "relative overflow-hidden h-48",
+                  "bg-lt-navy border border-lt-gold/20",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group rounded-lg",
-                  isCardActive(index) && "bg-lt-gold/10 border-lt-gold"
+                  "cursor-pointer rounded-lg",
+                  // Mobile: use explicit active state
+                  isMobile && isCardRevealed(index) && "bg-lt-gold/10 border-lt-gold",
+                  // Desktop: use hover states
+                  !isMobile && "hover:bg-lt-gold/10 hover:border-lt-gold"
                 )}
-                whileHover={{ scale: 1.02 }}
+                whileHover={!isMobile ? { scale: 1.02 } : {}}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 {/* Background overlay for hover/active state */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 transition-opacity duration-300",
-                    isCardActive(index) ? "opacity-95" : "opacity-0 group-hover:opacity-95"
+                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80",
+                    "transition-opacity duration-300",
+                    // Mobile: show/hide based on active state
+                    isMobile && isCardRevealed(index) ? "opacity-95" : 
+                    isMobile ? "opacity-0" :
+                    // Desktop: show/hide based on hover
+                    "opacity-0 group-hover:opacity-95"
                   )}
                 />
                 
-                {/* Default State - Title */}
+                {/* Default State - Title Only */}
                 <div className={cn(
-                  "relative z-10 p-6 text-center h-full flex flex-col justify-center transition-opacity duration-300",
-                  isCardActive(index) ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                  "relative z-10 p-6 h-full flex flex-col justify-center",
+                  "transition-opacity duration-300",
+                  // Mobile: hide when active
+                  isMobile && isCardRevealed(index) ? "opacity-0" :
+                  isMobile ? "opacity-100" :
+                  // Desktop: hide on hover
+                  "opacity-100 group-hover:opacity-0"
                 )}>
-                  <h3 className="font-lombard text-xl text-lt-ivory mb-3 group-hover:text-lt-gold transition-colors duration-300">
+                  <div className={cn(
+                    "w-8 h-8 mb-4 text-lt-gold",
+                    !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
+                  )}>
+                    <service.icon className="w-full h-full" />
+                  </div>
+                  <h3 className={cn(
+                    "font-lombard text-xl text-lt-ivory mb-4",
+                    !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
+                  )}>
                     {service.title}
                   </h3>
-                  <div className="w-8 h-0.5 bg-lt-gold mx-auto" />
+                  <div className="w-8 h-0.5 bg-lt-gold" />
                 </div>
 
                 {/* Hover/Active State - Description */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 z-20 p-4 transition-opacity duration-300 flex flex-col justify-center text-center",
-                    isCardActive(index) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    "absolute inset-0 z-20 p-6 flex flex-col justify-center",
+                    "transition-opacity duration-300",
+                    // Mobile: show when active
+                    isMobile && isCardRevealed(index) ? "opacity-100" :
+                    isMobile ? "opacity-0" :
+                    // Desktop: show on hover
+                    "opacity-0 group-hover:opacity-100"
                   )}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: isCardActive(index) ? 1 : 0 }}
+                  animate={{ opacity: isCardRevealed(index) ? 1 : 0 }}
                 >
-                  <h3 className="font-lombard text-lg text-lt-navy mb-3">
+                  <div className="w-8 h-8 mb-4 text-lt-navy">
+                    <service.icon className="w-full h-full" />
+                  </div>
+                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {service.title}
                   </h3>
                   <p className="text-sm text-lt-navy/90 leading-relaxed">
                     {service.description}
                   </p>
-                  {isMobile && (
+                  {isMobile && isCardRevealed(index) && (
                     <button
-                      className="mt-3 text-xs text-lt-navy/70 underline"
+                      className="mt-4 text-xs text-lt-navy/70 underline self-end"
                       onClick={(e) => {
                         e.stopPropagation()
                         setActiveCard(null)
@@ -155,23 +177,9 @@ export function CandidatesSection() {
           ))}
         </motion.div>
 
-        {/* Privacy Notice */}
+        {/* CTA Section */}
         <motion.div
-          className="mb-16"
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <div className="text-center border-t border-lt-gold border-opacity-30 pt-8">
-            <p className="text-lg text-lt-ivory/80 leading-relaxed">
-              All conversations are confidential. We work in line with GDPR requirements to ensure your data stays secure and in your control.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          className="text-center"
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -194,8 +202,24 @@ export function CandidatesSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Get Started Today
+            <MessageSquare className="w-4 h-4 mr-2" />
+            Start a Conversation
           </motion.a>
+        </motion.div>
+
+        {/* Privacy Notice */}
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <div className="inline-flex items-center text-lg text-lt-ivory/70">
+            <Shield className="w-5 h-5 mr-2" />
+            <span>
+              All applications are handled with complete confidentiality.
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>

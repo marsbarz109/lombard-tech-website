@@ -23,12 +23,14 @@ export function ServicesSection() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const handleCardInteraction = (index: number) => {
+  const handleCardClick = (index: number) => {
     if (isMobile) {
-      // On mobile, toggle the active card
       setActiveCard(activeCard === index ? null : index)
-    } else {
-      // On desktop, use hover
+    }
+  }
+
+  const handleCardHover = (index: number) => {
+    if (!isMobile) {
       setHoveredCard(index)
     }
   }
@@ -39,7 +41,7 @@ export function ServicesSection() {
     }
   }
 
-  const isCardActive = (index: number) => {
+  const isCardRevealed = (index: number) => {
     return isMobile ? activeCard === index : hoveredCard === index
   }
 
@@ -72,10 +74,10 @@ export function ServicesSection() {
             <motion.div
               key={service.id}
               variants={staggerItem}
-              className="group relative"
-              onMouseEnter={() => handleCardInteraction(index)}
+              className={cn("group relative", isMobile && "touch-manipulation")}
+              onMouseEnter={() => handleCardHover(index)}
               onMouseLeave={handleCardLeave}
-              onClick={() => handleCardInteraction(index)}
+              onClick={() => handleCardClick(index)}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -84,46 +86,63 @@ export function ServicesSection() {
               <motion.div
                 className={cn(
                   "relative overflow-hidden h-48",
-                  "bg-lt-navy hover:bg-lt-gold/10",
-                  "border border-lt-gold/20 hover:border-lt-gold",
+                  "bg-lt-navy border border-lt-gold/20",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group rounded-lg",
-                  isCardActive(index) && "bg-lt-gold/10 border-lt-gold"
+                  "cursor-pointer rounded-lg",
+                  // Mobile: use explicit active state
+                  isMobile && isCardRevealed(index) && "bg-lt-gold/10 border-lt-gold",
+                  // Desktop: use hover states
+                  !isMobile && "hover:bg-lt-gold/10 hover:border-lt-gold"
                 )}
-                whileHover={{ scale: 1.02 }}
+                whileHover={!isMobile ? { scale: 1.02 } : {}}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 {/* Background overlay for hover/active state */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 transition-opacity duration-300",
-                    isCardActive(index) ? "opacity-95" : "opacity-0 group-hover:opacity-95"
+                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80",
+                    "transition-opacity duration-300",
+                    // Mobile: show/hide based on active state
+                    isMobile && isCardRevealed(index) ? "opacity-95" : 
+                    isMobile ? "opacity-0" :
+                    // Desktop: show/hide based on hover
+                    "opacity-0 group-hover:opacity-95"
                   )}
                 />
                 
                 {/* Default State - Title Only */}
                 <div className={cn(
-                  "relative z-10 p-6 h-full flex flex-col justify-center transition-opacity duration-300",
-                  isCardActive(index) ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                  "relative z-10 p-6 h-full flex flex-col justify-center",
+                  "transition-opacity duration-300",
+                  // Mobile: hide when active
+                  isMobile && isCardRevealed(index) ? "opacity-0" :
+                  isMobile ? "opacity-100" :
+                  // Desktop: hide on hover
+                  "opacity-100 group-hover:opacity-0"
                 )}>
-                  {/* Service Title */}
-                  <h3 className="font-lombard text-xl text-lt-ivory mb-4 group-hover:text-lt-gold transition-colors duration-300">
+                  <h3 className={cn(
+                    "font-lombard text-xl text-lt-ivory mb-4",
+                    !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
+                  )}>
                     {service.title}
                   </h3>
-
-                  {/* Hover Indicator */}
                   <div className="w-8 h-0.5 bg-lt-gold" />
                 </div>
 
                 {/* Hover/Active State - Description */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 z-20 p-6 transition-opacity duration-300 flex flex-col justify-center",
-                    isCardActive(index) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    "absolute inset-0 z-20 p-6 flex flex-col justify-center",
+                    "transition-opacity duration-300",
+                    // Mobile: show when active
+                    isMobile && isCardRevealed(index) ? "opacity-100" :
+                    isMobile ? "opacity-0" :
+                    // Desktop: show on hover
+                    "opacity-0 group-hover:opacity-100"
                   )}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: isCardActive(index) ? 1 : 0 }}
+                  animate={{ opacity: isCardRevealed(index) ? 1 : 0 }}
                 >
                   <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {service.title}
@@ -131,7 +150,7 @@ export function ServicesSection() {
                   <p className="text-sm text-lt-navy/90 leading-relaxed">
                     {service.description}
                   </p>
-                  {isMobile && (
+                  {isMobile && isCardRevealed(index) && (
                     <button
                       className="mt-4 text-xs text-lt-navy/70 underline self-end"
                       onClick={(e) => {

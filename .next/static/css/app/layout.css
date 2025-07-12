@@ -809,6 +809,9 @@ video {
 .cursor-pointer {
   cursor: pointer;
 }
+.touch-manipulation {
+  touch-action: manipulation;
+}
 .resize-none {
   resize: none;
 }
