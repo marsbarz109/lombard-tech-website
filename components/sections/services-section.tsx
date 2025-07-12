@@ -43,12 +43,16 @@ export function ServicesSection() {
               className="group relative"
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
               <motion.div
                 className={cn(
                   "relative overflow-hidden h-48",
-                  "bg-lt-ivory hover:bg-lt-gold/10",
-                  "border border-lt-navy/10 hover:border-lt-gold",
+                  "bg-lt-navy hover:bg-lt-gold/10",
+                  "border border-lt-gold/20 hover:border-lt-gold",
                   "transition-all duration-300 ease-out",
                   "cursor-pointer group rounded-lg"
                 )}
@@ -57,11 +61,11 @@ export function ServicesSection() {
               >
                 {/* Background overlay for hover state */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-lt-navy to-lt-slate opacity-0 group-hover:opacity-95 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 opacity-0 group-hover:opacity-95 transition-opacity duration-300"
                 />
                 
                 {/* Default State - Number and Title */}
-                <div className="relative z-10 p-8 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300">
+                <div className="relative z-10 p-6 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300">
                   {/* Service Number */}
                   <div className="mb-4">
                     <span className="text-4xl font-black text-lt-gold opacity-80">
@@ -70,7 +74,7 @@ export function ServicesSection() {
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
+                  <h3 className="font-lombard text-xl text-lt-ivory mb-4 group-hover:text-lt-gold transition-colors duration-300">
                     {service.title}
                   </h3>
 
@@ -80,19 +84,19 @@ export function ServicesSection() {
 
                 {/* Hover State - Description */}
                 <motion.div
-                  className="absolute inset-0 z-20 p-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center"
+                  className="absolute inset-0 z-20 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                 >
                   <div className="mb-3">
-                    <span className="text-2xl font-black text-lt-gold">
+                    <span className="text-2xl font-black text-lt-navy">
                       {service.id}
                     </span>
                   </div>
-                  <h3 className="font-lombard text-xl text-lt-ivory mb-4">
+                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-lt-ivory/90 leading-relaxed">
+                  <p className="text-sm text-lt-navy/90 leading-relaxed">
                     {service.description}
                   </p>
                 </motion.div>
