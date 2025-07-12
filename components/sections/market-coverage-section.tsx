@@ -72,7 +72,7 @@ export function MarketCoverageSection() {
         >
           {MARKET_COVERAGE.map((market, index) => (
             <motion.div
-              key={market.id}
+              key={index}
               variants={staggerItem}
               className={cn("group relative", isMobile && "touch-manipulation")}
               onMouseEnter={() => handleCardHover(index)}

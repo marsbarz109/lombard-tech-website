@@ -7,6 +7,14 @@ import { CANDIDATE_SERVICES } from '@/lib/constants'
 import { fadeInUp, scaleOnHover, staggerContainer, staggerItem } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 
+// Icon mapping
+const iconMap = {
+  Target,
+  TrendingUp,
+  MessageSquare,
+  Users,
+} as const
+
 export function CandidatesSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -73,7 +81,7 @@ export function CandidatesSection() {
         >
           {CANDIDATE_SERVICES.map((service, index) => (
             <motion.div
-              key={service.id}
+              key={index}
               variants={staggerItem}
               className={cn("group relative", isMobile && "touch-manipulation")}
               onMouseEnter={() => handleCardHover(index)}
@@ -126,7 +134,10 @@ export function CandidatesSection() {
                     "w-8 h-8 mb-4 text-lt-gold",
                     !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
                   )}>
-                    <service.icon className="w-full h-full" />
+                    {(() => {
+                      const IconComponent = iconMap[service.icon as keyof typeof iconMap]
+                      return <IconComponent className="w-full h-full" />
+                    })()}
                   </div>
                   <h3 className={cn(
                     "font-lombard text-xl text-lt-ivory mb-4",
@@ -152,7 +163,10 @@ export function CandidatesSection() {
                   animate={{ opacity: isCardRevealed(index) ? 1 : 0 }}
                 >
                   <div className="w-8 h-8 mb-4 text-lt-navy">
-                    <service.icon className="w-full h-full" />
+                    {(() => {
+                      const IconComponent = iconMap[service.icon as keyof typeof iconMap]
+                      return <IconComponent className="w-full h-full" />
+                    })()}
                   </div>
                   <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {service.title}

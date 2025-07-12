@@ -78,18 +78,22 @@ export const CANDIDATE_SERVICES = [
   {
     title: 'Career Strategy',
     description: 'Personalised advice to help you plan your next move and accelerate your long-term growth.',
+    icon: 'Target',
   },
   {
     title: 'Market Insights',
     description: 'We keep you up to date with salary benchmarks, in-demand skills, and what employers are really looking for.',
+    icon: 'TrendingUp',
   },
   {
     title: 'Interview Preparation',
     description: 'Clear, honest prep and feedback to help you perform confidently in both technical and behavioural interviews.',
+    icon: 'MessageSquare',
   },
   {
     title: 'Network Building',
     description: 'Connect with relevant hiring managers and peers within the tech community through our active network.',
+    icon: 'Users',
   },
 ] as const
 
