@@ -7,14 +7,6 @@ import { CANDIDATE_SERVICES } from '@/lib/constants'
 import { fadeInUp, scaleOnHover, staggerContainer, staggerItem } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 
-// Icon mapping
-const iconMap = {
-  Target,
-  TrendingUp,
-  MessageSquare,
-  Users,
-} as const
-
 export function CandidatesSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
@@ -65,16 +57,25 @@ export function CandidatesSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
-            For Candidates
+            Candidates
           </h2>
           <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
-            We work with top-tier candidates across financial services to deliver long-term career moves. Our approach focuses on understanding your goals, leveraging our market knowledge, and connecting you with opportunities that match your ambitions.
+            We know what it's like to be a candidate. The market is busy, roles are often poorly defined, and it's hard to know who to trust. We aim to change that by being transparent, straightforward, and genuinely helpful — whether you're actively looking or just want to understand your options.
           </p>
+          <div className="flex justify-center mt-12">
+            <a
+              href="/contact"
+              className="inline-flex items-center px-8 py-4 bg-transparent text-lt-ivory border border-lt-ivory text-sm font-semibold tracking-wide hover:bg-lt-ivory hover:text-lt-navy transition-all duration-300"
+            >
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Start a Conversation
+            </a>
+          </div>
         </motion.div>
 
-        {/* Services Grid */}
+        {/* Candidate Services Grid */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -94,7 +95,7 @@ export function CandidatesSection() {
             >
               <motion.div
                 className={cn(
-                  "relative overflow-hidden h-48",
+                  "relative overflow-hidden h-32",
                   "bg-lt-navy border border-lt-gold/20",
                   "transition-all duration-300 ease-out",
                   "cursor-pointer rounded-lg",
@@ -120,9 +121,9 @@ export function CandidatesSection() {
                   )}
                 />
                 
-                {/* Default State - Title Only */}
+                {/* Default State - Title */}
                 <div className={cn(
-                  "relative z-10 p-6 h-full flex flex-col justify-center",
+                  "relative z-10 p-6 text-center h-full flex flex-col justify-center",
                   "transition-opacity duration-300",
                   // Mobile: hide when active
                   isMobile && isCardRevealed(index) ? "opacity-0" :
@@ -130,28 +131,19 @@ export function CandidatesSection() {
                   // Desktop: hide on hover
                   "opacity-100 group-hover:opacity-0"
                 )}>
-                  <div className={cn(
-                    "w-8 h-8 mb-4 text-lt-gold",
-                    !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
-                  )}>
-                    {(() => {
-                      const IconComponent = iconMap[service.icon as keyof typeof iconMap]
-                      return <IconComponent className="w-full h-full" />
-                    })()}
-                  </div>
                   <h3 className={cn(
-                    "font-lombard text-xl text-lt-ivory mb-4",
+                    "font-lombard text-xl text-lt-ivory mb-3",
                     !isMobile && "group-hover:text-lt-gold transition-colors duration-300"
                   )}>
                     {service.title}
                   </h3>
-                  <div className="w-8 h-0.5 bg-lt-gold" />
+                  <div className="w-8 h-0.5 bg-lt-gold mx-auto" />
                 </div>
 
                 {/* Hover/Active State - Description */}
                 <motion.div
                   className={cn(
-                    "absolute inset-0 z-20 p-6 flex flex-col justify-center",
+                    "absolute inset-0 z-20 p-4 flex flex-col justify-center text-center",
                     "transition-opacity duration-300",
                     // Mobile: show when active
                     isMobile && isCardRevealed(index) ? "opacity-100" :
@@ -162,13 +154,7 @@ export function CandidatesSection() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isCardRevealed(index) ? 1 : 0 }}
                 >
-                  <div className="w-8 h-8 mb-4 text-lt-navy">
-                    {(() => {
-                      const IconComponent = iconMap[service.icon as keyof typeof iconMap]
-                      return <IconComponent className="w-full h-full" />
-                    })()}
-                  </div>
-                  <h3 className="font-lombard text-xl text-lt-navy mb-4">
+                  <h3 className="font-lombard text-lg text-lt-navy mb-3">
                     {service.title}
                   </h3>
                   <p className="text-sm text-lt-navy/90 leading-relaxed">
@@ -176,7 +162,7 @@ export function CandidatesSection() {
                   </p>
                   {isMobile && isCardRevealed(index) && (
                     <button
-                      className="mt-4 text-xs text-lt-navy/70 underline self-end"
+                      className="mt-3 text-xs text-lt-navy/70 underline"
                       onClick={(e) => {
                         e.stopPropagation()
                         setActiveCard(null)
@@ -191,9 +177,23 @@ export function CandidatesSection() {
           ))}
         </motion.div>
 
-        {/* CTA Section */}
+        {/* Privacy Notice */}
         <motion.div
-          className="text-center mt-16"
+          className="mb-16"
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <div className="text-center border-t border-lt-gold border-opacity-30 pt-8">
+            <p className="text-lg text-lt-ivory/80 leading-relaxed">
+              All conversations are confidential. We work in line with GDPR requirements to ensure your data stays secure and in your control.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Call to Action */}
+        <motion.div
+          className="text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -216,24 +216,8 @@ export function CandidatesSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <MessageSquare className="w-4 h-4 mr-2" />
-            Start a Conversation
+            Get Started Today
           </motion.a>
-        </motion.div>
-
-        {/* Privacy Notice */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <div className="inline-flex items-center text-lg text-lt-ivory/70">
-            <Shield className="w-5 h-5 mr-2" />
-            <span>
-              All applications are handled with complete confidentiality.
-            </span>
-          </div>
         </motion.div>
       </div>
     </section>
