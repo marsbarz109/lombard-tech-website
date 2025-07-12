@@ -64,15 +64,8 @@ export function ServicesSection() {
                   className="absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 opacity-0 group-hover:opacity-95 transition-opacity duration-300"
                 />
                 
-                {/* Default State - Number and Title */}
+                {/* Default State - Title Only */}
                 <div className="relative z-10 p-6 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300">
-                  {/* Service Number */}
-                  <div className="mb-4">
-                    <span className="text-4xl font-black text-lt-gold opacity-80">
-                      {service.id}
-                    </span>
-                  </div>
-
                   {/* Service Title */}
                   <h3 className="font-lombard text-xl text-lt-ivory mb-4 group-hover:text-lt-gold transition-colors duration-300">
                     {service.title}
@@ -88,11 +81,6 @@ export function ServicesSection() {
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                 >
-                  <div className="mb-3">
-                    <span className="text-2xl font-black text-lt-navy">
-                      {service.id}
-                    </span>
-                  </div>
                   <h3 className="font-lombard text-xl text-lt-navy mb-4">
                     {service.title}
                   </h3>
