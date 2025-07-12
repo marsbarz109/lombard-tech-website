@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Users, TrendingUp, Award, Target, ArrowRight, Upload, Shield, MessageSquare, Clock } from 'lucide-react'
 import { CANDIDATE_SERVICES } from '@/lib/constants'
@@ -11,6 +11,38 @@ export function CandidatesSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const [activeCard, setActiveCard] = useState<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const handleCardInteraction = (index: number) => {
+    if (isMobile) {
+      // On mobile, toggle the active card
+      setActiveCard(activeCard === index ? null : index)
+    } else {
+      // On desktop, use hover
+      setHoveredCard(index)
+    }
+  }
+
+  const handleCardLeave = () => {
+    if (!isMobile) {
+      setHoveredCard(null)
+    }
+  }
+
+  const isCardActive = (index: number) => {
+    return isMobile ? activeCard === index : hoveredCard === index
+  }
 
   return (
     <section ref={ref} id="candidates" className="py-24 lg:py-32 bg-lt-navy">
@@ -51,8 +83,9 @@ export function CandidatesSection() {
               key={index}
               className="group relative"
               variants={staggerItem}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
+              onMouseEnter={() => handleCardInteraction(index)}
+              onMouseLeave={handleCardLeave}
+              onClick={() => handleCardInteraction(index)}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -64,29 +97,40 @@ export function CandidatesSection() {
                   "bg-lt-navy hover:bg-lt-gold/10",
                   "border border-lt-gold/20 hover:border-lt-gold",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group rounded-lg"
+                  "cursor-pointer group rounded-lg",
+                  isCardActive(index) && "bg-lt-gold/10 border-lt-gold"
                 )}
                 whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
-                {/* Background overlay for hover state */}
+                {/* Background overlay for hover/active state */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 opacity-0 group-hover:opacity-95 transition-opacity duration-300"
+                  className={cn(
+                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 transition-opacity duration-300",
+                    isCardActive(index) ? "opacity-95" : "opacity-0 group-hover:opacity-95"
+                  )}
                 />
                 
                 {/* Default State - Title */}
-                <div className="relative z-10 p-6 text-center h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300">
+                <div className={cn(
+                  "relative z-10 p-6 text-center h-full flex flex-col justify-center transition-opacity duration-300",
+                  isCardActive(index) ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                )}>
                   <h3 className="font-lombard text-xl text-lt-ivory mb-3 group-hover:text-lt-gold transition-colors duration-300">
                     {service.title}
                   </h3>
                   <div className="w-8 h-0.5 bg-lt-gold mx-auto" />
                 </div>
 
-                {/* Hover State - Description */}
+                {/* Hover/Active State - Description */}
                 <motion.div
-                  className="absolute inset-0 z-20 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center text-center"
+                  className={cn(
+                    "absolute inset-0 z-20 p-4 transition-opacity duration-300 flex flex-col justify-center text-center",
+                    isCardActive(index) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                  )}
                   initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
+                  animate={{ opacity: isCardActive(index) ? 1 : 0 }}
                 >
                   <h3 className="font-lombard text-lg text-lt-navy mb-3">
                     {service.title}
@@ -94,6 +138,17 @@ export function CandidatesSection() {
                   <p className="text-sm text-lt-navy/90 leading-relaxed">
                     {service.description}
                   </p>
+                  {isMobile && (
+                    <button
+                      className="mt-3 text-xs text-lt-navy/70 underline"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveCard(null)
+                      }}
+                    >
+                      Close
+                    </button>
+                  )}
                 </motion.div>
               </motion.div>
             </motion.div>

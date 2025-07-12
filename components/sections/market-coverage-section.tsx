@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { MARKET_COVERAGE } from '@/lib/constants'
 import { staggerContainer, staggerItem } from '@/lib/animations'
@@ -10,6 +10,38 @@ export function MarketCoverageSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const [activeCard, setActiveCard] = useState<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const handleCardInteraction = (index: number) => {
+    if (isMobile) {
+      // On mobile, toggle the active card
+      setActiveCard(activeCard === index ? null : index)
+    } else {
+      // On desktop, use hover
+      setHoveredCard(index)
+    }
+  }
+
+  const handleCardLeave = () => {
+    if (!isMobile) {
+      setHoveredCard(null)
+    }
+  }
+
+  const isCardActive = (index: number) => {
+    return isMobile ? activeCard === index : hoveredCard === index
+  }
 
   return (
     <section ref={ref} id="market-coverage" className="py-24 lg:py-32 bg-lt-navy">
@@ -41,8 +73,9 @@ export function MarketCoverageSection() {
               key={index}
               variants={staggerItem}
               className="group relative"
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
+              onMouseEnter={() => handleCardInteraction(index)}
+              onMouseLeave={handleCardLeave}
+              onClick={() => handleCardInteraction(index)}
             >
               <motion.div
                 className={cn(
@@ -50,19 +83,27 @@ export function MarketCoverageSection() {
                   "bg-lt-navy hover:bg-lt-gold/10",
                   "border border-lt-gold/20 hover:border-lt-gold",
                   "transition-all duration-300 ease-out",
-                  "cursor-pointer group rounded-lg"
+                  "cursor-pointer group rounded-lg",
+                  isCardActive(index) && "bg-lt-gold/10 border-lt-gold"
                 )}
                 whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
-                {/* Background overlay for hover state */}
+                {/* Background overlay for hover/active state */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 opacity-0 group-hover:opacity-95 transition-opacity duration-300"
+                  className={cn(
+                    "absolute inset-0 bg-gradient-to-br from-lt-gold to-lt-gold/80 transition-opacity duration-300",
+                    isCardActive(index) ? "opacity-95" : "opacity-0 group-hover:opacity-95"
+                  )}
                 />
                 
                 {/* Default State - Title */}
                 <motion.div 
-                  className="relative z-10 p-8 h-full flex flex-col justify-center group-hover:opacity-0 transition-opacity duration-300"
+                  className={cn(
+                    "relative z-10 p-8 h-full flex flex-col justify-center transition-opacity duration-300",
+                    isCardActive(index) ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                  )}
                 >
                   <h3 className="font-lombard text-xl text-lt-ivory mb-4">
                     {area.title}
@@ -70,11 +111,14 @@ export function MarketCoverageSection() {
                   <div className="w-12 h-1 bg-lt-gold" />
                 </motion.div>
 
-                {/* Hover State - Full Information */}
+                {/* Hover/Active State - Full Information */}
                 <motion.div
-                  className="absolute inset-0 z-20 p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center"
+                  className={cn(
+                    "absolute inset-0 z-20 p-8 transition-opacity duration-300 flex flex-col justify-center",
+                    isCardActive(index) ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                  )}
                   initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
+                  animate={{ opacity: isCardActive(index) ? 1 : 0 }}
                 >
                   <h3 className="font-lombard text-xl mb-4 text-lt-navy">
                     {area.title}
@@ -90,6 +134,17 @@ export function MarketCoverageSection() {
                       {area.roles}
                     </p>
                   </div>
+                  {isMobile && (
+                    <button
+                      className="mt-4 text-xs text-lt-navy/70 underline self-end"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveCard(null)
+                      }}
+                    >
+                      Close
+                    </button>
+                  )}
                 </motion.div>
               </motion.div>
             </motion.div>
