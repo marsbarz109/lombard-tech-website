@@ -8,7 +8,9 @@ export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [videoPlaying, setVideoPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -33,12 +35,71 @@ export function Hero() {
     }
   }, [])
 
+  // Enhanced video loading and autoplay
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const attemptPlay = async () => {
+      try {
+        // Ensure video is muted for autoplay to work
+        video.muted = true
+        await video.play()
+        setVideoPlaying(true)
+      } catch (error) {
+        console.log('Autoplay failed:', error)
+        // Fallback: try to play on user interaction
+        const playOnInteraction = () => {
+          video.play().then(() => {
+            setVideoPlaying(true)
+            document.removeEventListener('touchstart', playOnInteraction)
+            document.removeEventListener('click', playOnInteraction)
+          }).catch(console.error)
+        }
+        
+        document.addEventListener('touchstart', playOnInteraction, { once: true })
+        document.addEventListener('click', playOnInteraction, { once: true })
+      }
+    }
+
+    // Use intersection observer to start video when hero is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && video.paused) {
+            setTimeout(() => {
+              attemptPlay()
+            }, 100)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current)
+    }
+
+    // Initial play attempt
+    if (video.readyState >= 3) {
+      attemptPlay()
+    } else {
+      video.addEventListener('canplay', attemptPlay, { once: true })
+    }
+
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('touchstart', () => {})
+      document.removeEventListener('click', () => {})
+    }
+  }, [])
+
   const handleVideoLoad = () => {
     setVideoLoaded(true)
   }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-lt-ivory">
+    <section ref={heroRef} id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-lt-ivory">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {/* First frame poster/fallback background */}
@@ -63,9 +124,11 @@ export function Hero() {
           loop
           playsInline
           disablePictureInPicture
-          preload="auto"
+          preload="metadata"
           poster="/images/hero-poster.jpg"
           onCanPlay={handleVideoLoad}
+          onLoadedData={handleVideoLoad}
+          webkit-playsinline="true"
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
             videoLoaded ? "opacity-100" : "opacity-0"
