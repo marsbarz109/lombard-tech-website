@@ -28,14 +28,7 @@ export function CandidatesSection() {
           <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
             We know what it's like to be a candidate. The market is busy, roles are often poorly defined, and it's hard to know who to trust. We aim to change that by being transparent, straightforward, and genuinely helpful — whether you're actively looking or just want to understand your options.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-            <a
-              href="/contact"
-              className="inline-flex items-center px-8 py-4 bg-lt-gold text-lt-navy border border-lt-gold text-sm font-semibold tracking-wide hover:bg-lt-ivory hover:text-lt-navy transition-all duration-300"
-            >
-              <Upload className="mr-2 h-4 w-4" />
-              Submit Your CV
-            </a>
+          <div className="flex justify-center mt-12">
             <a
               href="/contact"
               className="inline-flex items-center px-8 py-4 bg-transparent text-lt-ivory border border-lt-ivory text-sm font-semibold tracking-wide hover:bg-lt-ivory hover:text-lt-navy transition-all duration-300"

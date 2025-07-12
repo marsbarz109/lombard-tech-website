@@ -1,15 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { buttonHover } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [videoLoaded, setVideoLoaded] = useState(false)
-  const [videoError, setVideoError] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -36,40 +35,40 @@ export function Hero() {
 
   const handleVideoLoad = () => {
     setVideoLoaded(true)
-    setVideoError(false)
-  }
-
-  const handleVideoError = () => {
-    setVideoError(true)
-    setVideoLoaded(false)
   }
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-lt-ivory">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        {/* Fallback background image for when video fails or on mobile */}
+        {/* First frame poster/fallback background */}
         <div 
           className={cn(
-            "absolute inset-0 bg-gradient-to-br from-lt-navy via-lt-navy to-slate-900",
+            "absolute inset-0 bg-cover bg-center bg-no-repeat",
             "transition-opacity duration-1000",
-            (videoLoaded && !videoError) ? "opacity-0" : "opacity-100"
+            videoLoaded ? "opacity-0" : "opacity-100"
           )}
+          style={{
+            backgroundImage: "url('/images/hero-poster.jpg')", // First frame of video
+            filter: 'blur(0.5px)',
+            transform: 'scale(1.05)',
+          }}
         />
         
         {/* Video element */}
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
           disablePictureInPicture
           preload="auto"
-          onLoadedData={handleVideoLoad}
-          onError={handleVideoError}
+          poster="/images/hero-poster.jpg"
+          onCanPlay={handleVideoLoad}
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
-            videoLoaded && !videoError ? "opacity-100" : "opacity-0"
+            videoLoaded ? "opacity-100" : "opacity-0"
           )}
           style={{
             filter: 'blur(0.5px)',
@@ -77,7 +76,6 @@ export function Hero() {
           }}
         >
           <source src="/videos/hero-video-hd.mp4" type="video/mp4" />
-          {/* Fallback to smaller video for mobile if needed */}
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -131,6 +129,30 @@ export function Hero() {
       {/* Decorative Elements */}
       <div className="absolute top-1/4 left-8 w-1 h-16 bg-lt-ivory opacity-30 z-40" />
       <div className="absolute bottom-1/4 right-8 w-1 h-16 bg-lt-ivory opacity-30 z-40" />
+      
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-40"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <div className="flex flex-col items-center space-y-2">
+          <div className="w-px h-12 bg-lt-ivory opacity-40" />
+          <motion.div
+            className="w-2 h-2 bg-lt-gold rounded-full"
+            animate={{
+              y: [0, 8, 0],
+              opacity: [0.4, 1, 0.4],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+      </motion.div>
     </section>
   )
 } 
