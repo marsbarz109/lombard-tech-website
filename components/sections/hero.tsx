@@ -35,41 +35,71 @@ export function Hero() {
     }
   }, [])
 
-  // Enhanced video loading and autoplay
+  // Enhanced video loading and autoplay for mobile
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
 
+    // Ensure video properties are set for autoplay
+    video.muted = true
+    video.defaultMuted = true
+    video.playsInline = true
+    video.autoplay = true
+    video.controls = false
+
     const attemptPlay = async () => {
       try {
-        // Ensure video is muted for autoplay to work
+        // Multiple attempts for mobile compatibility
         video.muted = true
+        video.volume = 0
         await video.play()
         setVideoPlaying(true)
+        console.log('Video playing successfully')
       } catch (error) {
-        console.log('Autoplay failed:', error)
-        // Fallback: try to play on user interaction
-        const playOnInteraction = () => {
+        console.log('Autoplay failed, setting up interaction listeners:', error)
+        
+        // More aggressive fallback for mobile
+        const playOnAnyInteraction = () => {
+          video.muted = true
+          video.volume = 0
           video.play().then(() => {
             setVideoPlaying(true)
-            document.removeEventListener('touchstart', playOnInteraction)
-            document.removeEventListener('click', playOnInteraction)
+            console.log('Video started after user interaction')
+            // Remove all listeners after successful play
+            document.removeEventListener('touchstart', playOnAnyInteraction)
+            document.removeEventListener('touchend', playOnAnyInteraction)
+            document.removeEventListener('click', playOnAnyInteraction)
+            document.removeEventListener('scroll', playOnAnyInteraction)
+            window.removeEventListener('scroll', playOnAnyInteraction)
           }).catch(console.error)
         }
         
-        document.addEventListener('touchstart', playOnInteraction, { once: true })
-        document.addEventListener('click', playOnInteraction, { once: true })
+        // Listen for any kind of user interaction
+        document.addEventListener('touchstart', playOnAnyInteraction, { passive: true })
+        document.addEventListener('touchend', playOnAnyInteraction, { passive: true })
+        document.addEventListener('click', playOnAnyInteraction, { passive: true })
+        document.addEventListener('scroll', playOnAnyInteraction, { passive: true })
+        window.addEventListener('scroll', playOnAnyInteraction, { passive: true })
       }
     }
 
-    // Use intersection observer to start video when hero is visible
+    // Multiple strategies to start the video
+    const startVideo = () => {
+      // Immediate attempt
+      attemptPlay()
+      
+      // Delayed attempts
+      setTimeout(attemptPlay, 100)
+      setTimeout(attemptPlay, 500)
+      setTimeout(attemptPlay, 1000)
+    }
+
+    // Use intersection observer
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && video.paused) {
-            setTimeout(() => {
-              attemptPlay()
-            }, 100)
+            startVideo()
           }
         })
       },
@@ -80,22 +110,27 @@ export function Hero() {
       observer.observe(heroRef.current)
     }
 
-    // Initial play attempt
-    if (video.readyState >= 3) {
-      attemptPlay()
+    // Start attempts when video is ready
+    if (video.readyState >= 2) {
+      startVideo()
     } else {
-      video.addEventListener('canplay', attemptPlay, { once: true })
+      video.addEventListener('canplay', startVideo, { once: true })
+      video.addEventListener('loadedmetadata', startVideo, { once: true })
+      video.addEventListener('loadeddata', startVideo, { once: true })
     }
 
     return () => {
       observer.disconnect()
-      document.removeEventListener('touchstart', () => {})
-      document.removeEventListener('click', () => {})
     }
   }, [])
 
   const handleVideoLoad = () => {
     setVideoLoaded(true)
+    const video = videoRef.current
+    if (video && video.paused) {
+      video.muted = true
+      video.play().catch(console.error)
+    }
   }
 
   return (
@@ -121,14 +156,18 @@ export function Hero() {
           ref={videoRef}
           autoPlay
           muted
+          defaultMuted
           loop
           playsInline
           disablePictureInPicture
+          controls={false}
           preload="metadata"
           poster="/images/hero-poster.jpg"
           onCanPlay={handleVideoLoad}
           onLoadedData={handleVideoLoad}
+          onLoadedMetadata={handleVideoLoad}
           webkit-playsinline="true"
+          x-webkit-airplay="deny"
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
             videoLoaded ? "opacity-100" : "opacity-0"
@@ -216,6 +255,6 @@ export function Hero() {
           />
         </div>
       </motion.div>
-    </section>
-  )
-} 
+          </section>
+    )
+  } 
