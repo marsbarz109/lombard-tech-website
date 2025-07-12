@@ -69,14 +69,6 @@ export default function ServicesPage() {
                         <li>• Flexible engagement models</li>
                       </ul>
                     )}
-                    {service.id === '04' && (
-                      <ul className="regular-body text-text-gray space-y-2">
-                        <li>• Workforce planning strategies</li>
-                        <li>• Market intelligence reports</li>
-                        <li>• Compensation benchmarking</li>
-                        <li>• Talent pipeline development</li>
-                      </ul>
-                    )}
                   </div>
                 </div>
                 <div className={`bg-primary-black p-8 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
