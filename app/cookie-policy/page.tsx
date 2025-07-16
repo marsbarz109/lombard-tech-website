@@ -237,7 +237,7 @@ export default function CookiePolicyPage() {
           <section>
             <h2 className="font-lombard text-2xl font-semibold text-lt-navy mb-4">9. Browser & Device Controls</h2>
             <p className="text-lt-navy/80 mb-4">
-              You can manage cookies through your browser settings. Instructions vary by browser; common paths include Settings > Privacy > Cookies or Site Data. Deleting or blocking cookies may impact Site functionality. Some browsers offer global opt‑out signals for tracking (e.g., GPC). Mobile operating systems may provide advertising ID resets or opt‑outs.
+              You can manage cookies through your browser settings. Instructions vary by browser; common paths include Settings &gt; Privacy &gt; Cookies or Site Data. Deleting or blocking cookies may impact Site functionality. Some browsers offer global opt‑out signals for tracking (e.g., GPC). Mobile operating systems may provide advertising ID resets or opt‑outs.
             </p>
           </section>
 
