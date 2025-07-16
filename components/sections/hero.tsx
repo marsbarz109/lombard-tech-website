@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 export function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [videoPlaying, setVideoPlaying] = useState(false)
@@ -13,13 +12,6 @@ export function Hero() {
   const heroRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      })
-    }
-
     // Check if device is mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
@@ -27,11 +19,9 @@ export function Hero() {
 
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    window.addEventListener('mousemove', handleMouseMove)
     
     return () => {
       window.removeEventListener('resize', checkMobile)
-      window.removeEventListener('mousemove', handleMouseMove)
     }
   }, [])
 
@@ -187,17 +177,6 @@ export function Hero() {
           }}
         />
       </div>
-
-      {/* Radial gradient cursor parallax background with lt-gold */}
-      {!isMobile && (
-        <div 
-          className="absolute inset-0 z-20"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(212, 196, 158, 0.15) 0%, transparent 50%)`,
-            transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`,
-          }}
-        />
-      )}
 
       <div className="relative z-30 max-w-screen-2xl mx-auto px-6 lg:px-12 text-center">
         {/* Logo */}

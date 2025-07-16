@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import { Users, Target, Shield, Heart, Unlock } from 'lucide-react'
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 const companyValues = [
   {
@@ -29,20 +30,43 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} id="about" className="py-24 lg:py-32 bg-lt-navy">
+    <section ref={ref} id="about" className="pb-24 lg:pb-32 bg-lt-navy scroll-mt-20">
       {/* First Section: About + Leadership (Image Left, Content Right) */}
       <motion.div
-        className="grid lg:grid-cols-2 items-stretch mb-24"
+        className="grid lg:grid-cols-2 items-stretch mb-24 relative"
         variants={fadeInUp}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
-        {/* Image Placeholder - Left Side (Full Width) */}
+        {/* About Us Image - Left Side (Full Width) */}
         <div className="relative">
-          <div className="h-full bg-lt-gold/10 rounded-none border-r border-lt-gold/20 flex items-center justify-center min-h-[400px]">
-            <div className="text-center">
-              <Users className="h-16 w-16 text-lt-gold/40 mx-auto mb-4" />
-              <p className="text-lt-ivory/60 text-sm">About us image</p>
+          <div className="h-full min-h-[500px] lg:min-h-[600px] relative overflow-hidden">
+            <Image
+              src="/images/about-us-img.jpg"
+              alt="About Lombard Tech - Professional recruitment team"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={false}
+            />
+            {/* Enhanced gradient overlay for seamless blending */}
+            <div className="absolute inset-0 bg-gradient-to-l from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px]" 
+                 style={{
+                   background: `linear-gradient(to left, 
+                     #061129 0%, 
+                     rgba(6, 17, 41, 0.98) 5%, 
+                     rgba(6, 17, 41, 0.95) 10%, 
+                     rgba(6, 17, 41, 0.90) 15%, 
+                     rgba(6, 17, 41, 0.82) 20%, 
+                     rgba(6, 17, 41, 0.72) 25%, 
+                     rgba(6, 17, 41, 0.60) 30%, 
+                     rgba(6, 17, 41, 0.46) 35%, 
+                     rgba(6, 17, 41, 0.32) 40%, 
+                     rgba(6, 17, 41, 0.20) 45%, 
+                     rgba(6, 17, 41, 0.10) 50%, 
+                     rgba(6, 17, 41, 0.04) 55%, 
+                     transparent 60%)`
+                 }}>
             </div>
           </div>
         </div>
@@ -68,6 +92,43 @@ export function AboutSection() {
             </div>
           </div>
         </div>
+
+        {/* Scroll Indicator - Positioned at bottom center of this section */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+        >
+          <div className="flex flex-col items-center space-y-2">
+            <div className="w-px h-8 bg-lt-gold/40" />
+            <motion.div
+              className="w-1.5 h-1.5 bg-lt-gold rounded-full"
+              animate={{
+                y: [0, 6, 0],
+                opacity: [0.4, 1, 0.4],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="w-1 h-1 bg-lt-gold/60 rounded-full"
+              animate={{
+                y: [0, 4, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                delay: 0.3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+        </motion.div>
       </motion.div>
 
       <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">

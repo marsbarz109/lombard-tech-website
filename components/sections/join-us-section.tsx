@@ -3,21 +3,22 @@
 import { motion } from 'framer-motion'
 import { Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 export function JoinUsSection() {
   return (
     <section id="join-us" className="py-24 bg-lt-navy">
       {/* Main Content Section (Content Left, Image Right) */}
       <motion.div
-        className="grid lg:grid-cols-2 items-stretch"
+        className="grid lg:grid-cols-5 items-stretch"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        {/* Content - Left Side */}
-        <div className="flex items-center">
-          <div className="w-full max-w-2xl mx-auto px-6 lg:px-12 py-16">
+        {/* Content - Left Side (3 columns) */}
+        <div className="lg:col-span-3 flex items-center">
+          <div className="w-full px-6 lg:px-12 py-16">
             <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-8">
               Join the Team
             </h2>
@@ -88,12 +89,35 @@ export function JoinUsSection() {
           </div>
         </div>
 
-        {/* Image Placeholder - Right Side (Full Width) */}
-        <div className="relative">
-          <div className="h-full bg-lt-gold/10 rounded-none border-l border-lt-gold/20 flex items-center justify-center min-h-[400px]">
-            <div className="text-center">
-              <Users className="h-16 w-16 text-lt-gold/40 mx-auto mb-4" />
-              <p className="text-lt-ivory/60 text-sm">Join us image</p>
+        {/* Join Us Image - Right Side (2 columns) */}
+        <div className="lg:col-span-2 relative">
+          <div className="h-full min-h-[400px] relative overflow-hidden">
+            <Image
+              src="/images/join-us-img.jpg"
+              alt="Join the Lombard Tech team"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+              priority={false}
+            />
+            {/* Enhanced gradient overlay for seamless blending */}
+            <div className="absolute inset-0 bg-gradient-to-r from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px]" 
+                 style={{
+                   background: `linear-gradient(to right, 
+                     #061129 0%, 
+                     rgba(6, 17, 41, 0.98) 5%, 
+                     rgba(6, 17, 41, 0.95) 10%, 
+                     rgba(6, 17, 41, 0.90) 15%, 
+                     rgba(6, 17, 41, 0.82) 20%, 
+                     rgba(6, 17, 41, 0.72) 25%, 
+                     rgba(6, 17, 41, 0.60) 30%, 
+                     rgba(6, 17, 41, 0.46) 35%, 
+                     rgba(6, 17, 41, 0.32) 40%, 
+                     rgba(6, 17, 41, 0.20) 45%, 
+                     rgba(6, 17, 41, 0.10) 50%, 
+                     rgba(6, 17, 41, 0.04) 55%, 
+                     transparent 60%)`
+                 }}>
             </div>
           </div>
         </div>

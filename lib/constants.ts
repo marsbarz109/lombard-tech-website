@@ -5,11 +5,11 @@ export const SITE_CONFIG = {
   logo: 'Lombard Tech',
   tagline: 'Decisive hiring, delivered with clarity and integrity',
   email: 'Joseph.Marsden@lombard-tech.io',
-  phone: '07917 442221', // Keep for backwards compatibility
+  phone: '+44 (0)7917 442221', // Keep for backwards compatibility
   phones: {
-    mobile: '07917 442221',
-    ukOffice: '+44 20 3807 3032',
-    franceOffice: '+33 1 84 80 35 61'
+    mobile: '+44 (0)7917 442221',
+    ukOffice: '+44 (0)20 3807 3032',
+    franceOffice: '+33 (0)1 84 80 35 61'
   },
   address: '71–75 Shelton Street, London, WC2H 9JQ',
   social: {
