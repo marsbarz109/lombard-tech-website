@@ -5,7 +5,12 @@ export const SITE_CONFIG = {
   logo: 'Lombard Tech',
   tagline: 'Decisive hiring, delivered with clarity and integrity',
   email: 'Joseph.Marsden@lombard-tech.io',
-  phone: '07917 442221',
+  phone: '07917 442221', // Keep for backwards compatibility
+  phones: {
+    mobile: '07917 442221',
+    ukOffice: '+44 20 3807 3032',
+    franceOffice: '+33 1 84 80 35 61'
+  },
   address: '71–75 Shelton Street, London, WC2H 9JQ',
   social: {
     linkedin: 'https://linkedin.com/company/lombard-tech',
@@ -43,34 +48,34 @@ export const SERVICES = [
 
 export const MARKET_COVERAGE = [
   {
-    title: 'Data Science & Analytics',
-    description: 'We help businesses unlock insights and build data capability with the right people.',
-    roles: 'Data Scientist, Data Analyst, Machine Learning Engineer, AI Specialist, Data Engineer, Quant Analyst'
+    title: 'Network Engineering',
+    description: 'We support global networks with the expertise to optimise speed, security, and resilience across complex architectures.',
+    roles: 'Network Engineer, Network Architect, Network Automation Engineer, Wireless Engineer, SD-WAN Specialist, Load Balancing Engineer, BGP/MPLS Specialist, IP Fabric Engineer, WAN Optimisation, Network Security Engineer, SASE/Zero Trust Consultant, Network Monitoring Specialist, Data Centre Engineer, Service Provider Engineer'
   },
   {
-    title: 'Cybersecurity',
+    title: 'Trading Systems',
+    description: 'We help financial institutions build and maintain ultra-low latency trading environments with specialist talent across engineering and support functions.',
+    roles: 'Low Latency Network Engineer, FPGA Engineer, Market Data Specialist, SRE, Trading Platform Developer, FIX Protocol Engineer, EUC Engineer, Exchange Connectivity Engineer, Colocation Specialist'
+  },
+  {
+    title: 'Cloud & Infrastructure',
+    description: 'We work with teams modernising their infrastructure, from on-prem to hybrid and cloud-native environments, ensuring security, scale, and uptime.',
+    roles: 'Cloud Engineer, Cloud Architect, DevOps Engineer, Platform Engineer, Kubernetes Specialist, Infrastructure as Code (IaC) Specialist, Hybrid Cloud Engineer, Multi-Cloud Consultant (AWS, Azure, GCP), Data Centre Engineer, Storage & Backup Engineer, Cloud Security Specialist'
+  },
+  {
+    title: 'Cyber Security',
     description: 'Security teams rely on technical depth, discretion, and speed of hire. We deliver all three.',
-    roles: 'Security Analyst, Security Engineer, Penetration Tester, Threat Intelligence, GRC Consultant, CISO'
+    roles: 'Security Analyst, SOC Analyst, Security Engineer, IAM Consultant, Red Team/Blue Team Specialist, Threat Intelligence Analyst, CISO, GRC Consultant, SIEM/SOAR Engineer, Endpoint Security Specialist, Certificate Management Specialist, NDR/XDR Engineer'
   },
   {
-    title: 'Cloud & DevOps',
-    description: 'We support digital infrastructure teams across build, scale, and optimisation.',
-    roles: 'DevOps Engineer, Cloud Engineer, Cloud Architect, Platform Engineer, Site Reliability Engineer'
-  },
-  {
-    title: 'UX/UI Design',
-    description: 'We support the design function with talent that balances creativity and usability.',
-    roles: 'UX Designer, UI Designer, Design Lead, User Researcher'
-  },
-  {
-    title: 'Engineering Leadership',
-    description: 'We deliver senior leadership across engineering, transformation, and technical strategy.',
-    roles: 'CTO, VP Engineering, Head of Engineering, Director of Software, Programme Director'
+    title: 'Digital Workplace',
+    description: 'We support end-user and collaboration environments that underpin secure, productive digital workplaces.',
+    roles: 'M365 Consultant, Unified Communications Engineer, Endpoint Management Specialist, Teams Telephony Engineer, VDI Specialist, Mobile Device Management (MDM) Consultant, Intune Engineer, Collaboration Tools Specialist'
   },
   {
     title: 'Future Markets',
-    description: 'Emerging technology roles and forward-thinking positions that drive innovation and digital transformation.',
-    roles: 'AI/ML Engineer, Blockchain Developer, IoT Specialist, Quantum Computing Researcher, AR/VR Developer'
+    description: 'We are actively building our network and delivery capability in the following areas:',
+    roles: 'Data & BI Engineering, Software Development, Machine Learning & AI'
   },
 ] as const
 

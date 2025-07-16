@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { ContactForm } from '@/components/forms/contact-form'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { SITE_CONFIG } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -49,12 +50,35 @@ export default function ContactPage() {
               <div className="bg-lt-navy hover:bg-lt-gold/10 border border-lt-gold/20 hover:border-lt-gold p-6 transition-all duration-300 rounded-lg h-full">
                 <Phone className="h-8 w-8 text-lt-gold mb-4 group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="font-lombard text-lg text-lt-ivory mb-3">Phone</h3>
-                <a 
-                  href="tel:07917442221"
-                  className="text-lt-gold hover:text-lt-ivory transition-colors font-medium"
-                >
-                  07917 442221
-                </a>
+                <div className="space-y-2">
+                  <div>
+                    <p className="text-lt-ivory/60 text-xs mb-1">Mobile</p>
+                    <a 
+                      href={`tel:${SITE_CONFIG.phones.mobile}`}
+                      className="text-lt-gold hover:text-lt-ivory transition-colors font-medium"
+                    >
+                      {SITE_CONFIG.phones.mobile}
+                    </a>
+                  </div>
+                  <div>
+                    <p className="text-lt-ivory/60 text-xs mb-1">UK Office</p>
+                    <a 
+                      href={`tel:${SITE_CONFIG.phones.ukOffice}`}
+                      className="text-lt-gold hover:text-lt-ivory transition-colors font-medium"
+                    >
+                      {SITE_CONFIG.phones.ukOffice}
+                    </a>
+                  </div>
+                  <div>
+                    <p className="text-lt-ivory/60 text-xs mb-1">France Office</p>
+                    <a 
+                      href={`tel:${SITE_CONFIG.phones.franceOffice}`}
+                      className="text-lt-gold hover:text-lt-ivory transition-colors font-medium"
+                    >
+                      {SITE_CONFIG.phones.franceOffice}
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             

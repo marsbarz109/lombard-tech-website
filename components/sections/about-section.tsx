@@ -30,31 +30,31 @@ export function AboutSection() {
 
   return (
     <section ref={ref} id="about" className="py-24 lg:py-32 bg-lt-navy">
-      <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
-        {/* First Section: About + Leadership (Image Left, Content Right) */}
-        <motion.div
-          className="grid lg:grid-cols-2 gap-16 mb-24 items-center"
-          variants={fadeInUp}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {/* Image Placeholder - Left Side */}
-          <div className="relative">
-            <div className="aspect-[4/3] bg-lt-gold/10 rounded-none border border-lt-gold/20 flex items-center justify-center">
-              <div className="text-center">
-                <Users className="h-16 w-16 text-lt-gold/40 mx-auto mb-4" />
-                <p className="text-lt-ivory/60 text-sm">About us image</p>
-              </div>
+      {/* First Section: About + Leadership (Image Left, Content Right) */}
+      <motion.div
+        className="grid lg:grid-cols-2 items-stretch mb-24"
+        variants={fadeInUp}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        {/* Image Placeholder - Left Side (Full Width) */}
+        <div className="relative">
+          <div className="h-full bg-lt-gold/10 rounded-none border-r border-lt-gold/20 flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <Users className="h-16 w-16 text-lt-gold/40 mx-auto mb-4" />
+              <p className="text-lt-ivory/60 text-sm">About us image</p>
             </div>
           </div>
-          
-          {/* Content - Right Side */}
-          <div>
+        </div>
+        
+        {/* Content - Right Side */}
+        <div className="flex items-center">
+          <div className="w-full max-w-2xl mx-auto px-6 lg:px-12 py-16">
             <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-8">
               About Lombard Tech
             </h2>
             <p className="text-lg text-lt-ivory leading-relaxed mb-12">
-              Our recruiters are experienced, well connected, and focused on results. We work across Infrastructure and Cloud, Cybersecurity, Data, and Software Development, covering both contract and permanent hiring, from hands-on roles to leadership. As a specialist and independent firm, we operate with minimal off limits. This gives clients broader access to the market and faster results.
+              Lombard Tech is a division of Lombard Consulting Group. Our recruiters are experienced, well-connected, and focused on results. We work across Network Engineering, Cloud & Infrastructure, Trading Systems, and the Digital Workplace, covering both contract and permanent hiring, from hands-on roles to leadership. As a specialist and independent firm, we operate with minimal off-limits, giving our clients broader access to the market.
             </p>
             
             {/* Leadership Section */}
@@ -63,12 +63,14 @@ export function AboutSection() {
                 Leadership
               </h3>
               <p className="text-lg text-lt-ivory leading-relaxed">
-                Lombard Tech was founded by Joseph Marsden, an experienced IT recruiter with a strong track record across the Western European Network, Cloud, and Infrastructure markets. As one of Phaidon International's top billers in Europe, he generated over £1 million in revenue and maintained a recurring book of approximately £50K per month at exit. He later took on a broader commercial and operational role at another international recruitment firm before founding Lombard Tech as an independent and modern alternative.
+                Lombard Tech was founded by Joseph Marsden, an experienced IT recruiter with a strong track record across the Western European Network, Cloud, and Infrastructure markets. As one of Phaidon International's top billers in Europe, he generated over £1 million in revenue and maintained a recurring book of approximately £50K per month at exit. He later took on a broader commercial and operational role at another international recruitment firm before founding Lombard Tech, a modern and independent alternative.
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
+      </motion.div>
 
+      <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
         {/* Second Section: Mission and Values (Full Width) */}
         <motion.div
           className="text-center"

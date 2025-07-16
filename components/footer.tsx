@@ -32,14 +32,28 @@ export function Footer() {
                   {SITE_CONFIG.email}
                 </a>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-lt-gold" />
-                <a 
-                  href={`tel:${SITE_CONFIG.phone}`}
-                  className="text-lt-ivory/80 hover:text-lt-gold transition-colors"
-                >
-                  {SITE_CONFIG.phone}
-                </a>
+              <div className="flex items-start space-x-3">
+                <Phone className="h-4 w-4 text-lt-gold mt-1" />
+                <div className="space-y-1">
+                  <a 
+                    href={`tel:${SITE_CONFIG.phones.mobile}`}
+                    className="text-lt-ivory/80 hover:text-lt-gold transition-colors block"
+                  >
+                    {SITE_CONFIG.phones.mobile} <span className="text-lt-ivory/60 text-xs">(Mobile)</span>
+                  </a>
+                  <a 
+                    href={`tel:${SITE_CONFIG.phones.ukOffice}`}
+                    className="text-lt-ivory/80 hover:text-lt-gold transition-colors block"
+                  >
+                    {SITE_CONFIG.phones.ukOffice} <span className="text-lt-ivory/60 text-xs">(UK Office)</span>
+                  </a>
+                  <a 
+                    href={`tel:${SITE_CONFIG.phones.franceOffice}`}
+                    className="text-lt-ivory/80 hover:text-lt-gold transition-colors block"
+                  >
+                    {SITE_CONFIG.phones.franceOffice} <span className="text-lt-ivory/60 text-xs">(France Office)</span>
+                  </a>
+                </div>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-4 w-4 text-lt-gold" />
@@ -119,7 +133,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="border-t border-lt-gold border-opacity-30 mt-12 pt-8 text-center">
           <p className="text-lt-ivory/60 text-sm">
-            © {currentYear} {SITE_CONFIG.name}. All rights reserved.
+            © {currentYear} {SITE_CONFIG.name}, a division of Lombard Consulting Group Ltd. All rights reserved.
           </p>
         </div>
       </div>
