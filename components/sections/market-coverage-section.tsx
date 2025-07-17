@@ -100,7 +100,7 @@ export function MarketCoverageSection() {
                   "bg-lt-navy transition-all duration-300 ease-out",
                   // Mobile: dynamic height when expanded, fixed when not
                   isMobile 
-                    ? (isCardRevealed(index) ? "min-h-[320px]" : "h-48")
+                    ? (isCardRevealed(index) ? "min-h-[380px]" : "h-48")
                     : "h-48", // Desktop: always fixed height
                   // Completely hide when expanded on desktop
                   !isMobile && isCardExpanded(index) 
@@ -154,20 +154,20 @@ export function MarketCoverageSection() {
                 {isMobile && (
                   <motion.div
                     className={cn(
-                      "absolute inset-0 z-20 p-6 flex flex-col",
+                      "absolute inset-0 z-20 p-5 flex flex-col",
                       "transition-opacity duration-300",
                       isCardRevealed(index) ? "opacity-100" : "opacity-0"
                     )}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isCardRevealed(index) ? 1 : 0 }}
                   >
-                    <h3 className="font-lombard text-xl mb-4 text-lt-navy">
+                    <h3 className="font-lombard text-lg mb-3 text-lt-navy">
                       {area.title}
                     </h3>
-                    <p className="text-sm mb-4 text-lt-navy/90 leading-relaxed">
+                    <p className="text-sm mb-3 text-lt-navy/90 leading-relaxed">
                       {area.description}
                     </p>
-                    <div className="border-t border-lt-navy/30 pt-4 mb-4 flex-1">
+                    <div className="border-t border-lt-navy/30 pt-3 mb-3 flex-1">
                       <p className="text-xs font-semibold text-lt-navy mb-2">
                         Roles include:
                       </p>
