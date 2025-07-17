@@ -93,12 +93,15 @@ export function MarketCoverageSection() {
               onMouseLeave={handleCardLeave}
               onClick={() => handleCardClick(index)}
             >
-              {/* Base Card - Always maintains grid position */}
+              {/* Base Card - Dynamic height on mobile when expanded */}
               <motion.div
                 className={cn(
                   "relative overflow-hidden cursor-pointer rounded-lg",
                   "bg-lt-navy transition-all duration-300 ease-out",
-                  "h-48", // Fixed height to maintain grid
+                  // Mobile: dynamic height when expanded, fixed when not
+                  isMobile 
+                    ? (isCardRevealed(index) ? "min-h-[320px]" : "h-48")
+                    : "h-48", // Desktop: always fixed height
                   // Completely hide when expanded on desktop
                   !isMobile && isCardExpanded(index) 
                     ? "invisible"
@@ -110,6 +113,7 @@ export function MarketCoverageSection() {
                 )}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
+                layout={isMobile} // Enable layout animation for mobile height changes
               >
                 {/* Background overlay for hover/active state - hide when expanded */}
                 <motion.div
@@ -146,11 +150,11 @@ export function MarketCoverageSection() {
                   <div className="w-12 h-1 bg-lt-gold mx-auto" />
                 </motion.div>
 
-                {/* Mobile Expanded Content (in-place) */}
+                {/* Mobile Expanded Content (in-place with proper spacing) */}
                 {isMobile && (
                   <motion.div
                     className={cn(
-                      "absolute inset-0 z-20 p-6 flex flex-col justify-start",
+                      "absolute inset-0 z-20 p-6 flex flex-col",
                       "transition-opacity duration-300",
                       isCardRevealed(index) ? "opacity-100" : "opacity-0"
                     )}
@@ -163,7 +167,7 @@ export function MarketCoverageSection() {
                     <p className="text-sm mb-4 text-lt-navy/90 leading-relaxed">
                       {area.description}
                     </p>
-                    <div className="border-t border-lt-navy/30 pt-3">
+                    <div className="border-t border-lt-navy/30 pt-4 mb-4 flex-1">
                       <p className="text-xs font-semibold text-lt-navy mb-2">
                         Roles include:
                       </p>
@@ -172,7 +176,7 @@ export function MarketCoverageSection() {
                       </p>
                     </div>
                     <button
-                      className="mt-4 text-xs text-lt-navy/70 underline self-end"
+                      className="text-xs text-lt-navy/70 underline self-end mt-auto"
                       onClick={(e) => {
                         e.stopPropagation()
                         setActiveCard(null)
