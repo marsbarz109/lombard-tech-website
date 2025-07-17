@@ -34,6 +34,7 @@ export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
+  const [result, setResult] = useState<any>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -138,12 +139,32 @@ export function ContactForm() {
     setIsSubmitting(true)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Create FormData for file upload support
+      const formDataToSend = new FormData()
+      formDataToSend.append('name', formData.name)
+      formDataToSend.append('email', formData.email)
+      formDataToSend.append('phone', formData.phone)
+      formDataToSend.append('message', formData.message)
       
-      // Here you would normally send the data to your API
-      console.log('Form submitted:', formData)
+      // Only append file if one exists
+      if (formData.file) {
+        formDataToSend.append('file', formData.file)
+      }
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: formDataToSend,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message')
+      }
+
+      console.log('Form submitted successfully:', result)
       
+      setResult(result)
       setIsSubmitted(true)
       setFormData({
         name: '',
@@ -154,6 +175,8 @@ export function ContactForm() {
       })
     } catch (error) {
       console.error('Error submitting form:', error)
+      // You could add error state here to show user-friendly error messages
+      setErrors({ ...errors, message: error instanceof Error ? error.message : 'Failed to send message. Please try again.' })
     } finally {
       setIsSubmitting(false)
     }
@@ -169,13 +192,16 @@ export function ContactForm() {
       >
         <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-lt-gold mb-2">
-          {formData.file ? 'CV and message submitted successfully!' : 'Thank you for your message!'}
+          {result?.message || (formData.file ? 'CV and message submitted successfully!' : 'Thank you for your message!')}
         </h3>
         <p className="text-lt-ivory/80">
           We'll get back to you within 24 hours.
         </p>
         <Button
-          onClick={() => setIsSubmitted(false)}
+          onClick={() => {
+            setIsSubmitted(false)
+            setResult(null)
+          }}
           variant="outline"
           className="mt-6"
         >
