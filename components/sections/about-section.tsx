@@ -30,7 +30,7 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} id="about" className="pb-24 lg:pb-32 bg-lt-navy scroll-mt-20">
+    <section ref={ref} id="about" className="pb-24 lg:pb-32 bg-lt-navy scroll-mt-8">
       {/* First Section: About + Leadership (Image Left, Content Right) */}
       <motion.div
         className="grid lg:grid-cols-2 items-stretch mb-24 relative"
@@ -50,9 +50,28 @@ export function AboutSection() {
               priority={false}
             />
             {/* Enhanced gradient overlay for seamless blending */}
-            <div className="absolute inset-0 bg-gradient-to-l from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px]" 
+            <div className="absolute inset-0 bg-gradient-to-l from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px] lg:block hidden" 
                  style={{
                    background: `linear-gradient(to left, 
+                     #061129 0%, 
+                     rgba(6, 17, 41, 0.98) 5%, 
+                     rgba(6, 17, 41, 0.95) 10%, 
+                     rgba(6, 17, 41, 0.90) 15%, 
+                     rgba(6, 17, 41, 0.82) 20%, 
+                     rgba(6, 17, 41, 0.72) 25%, 
+                     rgba(6, 17, 41, 0.60) 30%, 
+                     rgba(6, 17, 41, 0.46) 35%, 
+                     rgba(6, 17, 41, 0.32) 40%, 
+                     rgba(6, 17, 41, 0.20) 45%, 
+                     rgba(6, 17, 41, 0.10) 50%, 
+                     rgba(6, 17, 41, 0.04) 55%, 
+                     transparent 60%)`
+                 }}>
+            </div>
+            {/* Mobile gradient overlay - bottom blend */}
+            <div className="absolute inset-0 bg-gradient-to-t from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px] lg:hidden" 
+                 style={{
+                   background: `linear-gradient(to top, 
                      #061129 0%, 
                      rgba(6, 17, 41, 0.98) 5%, 
                      rgba(6, 17, 41, 0.95) 10%, 
@@ -87,7 +106,7 @@ export function AboutSection() {
                 Leadership
               </h3>
               <p className="text-lg text-lt-ivory leading-relaxed">
-                Lombard Tech was founded by Joseph Marsden, an experienced IT recruiter with a strong track record across the Western European Network, Cloud, and Infrastructure markets. As one of Phaidon International's top billers in Europe, he generated over £1 million in revenue and maintained a recurring book of approximately £50K per month at exit. He later took on a broader commercial and operational role at another international recruitment firm before founding Lombard Tech, a modern and independent alternative.
+                Lombard Tech was founded by Joseph Marsden, a highly accomplished IT recruiter and one of Phaidon International's top performers in Europe. With deep expertise across the Western European Network, Cloud, and Infrastructure markets, he went on to take a broader commercial and operational role at TwentyAI before launching Lombard Tech as a modern, independent alternative.
               </p>
             </div>
           </div>

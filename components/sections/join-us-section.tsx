@@ -8,7 +8,7 @@ import Image from 'next/image'
 export function JoinUsSection() {
   return (
     <section id="join-us" className="py-24 bg-lt-navy">
-      {/* Main Content Section (Content Left, Image Right) */}
+      {/* Main Content Section (Content Left, Image Right on Desktop, Image Above Content on Mobile) */}
       <motion.div
         className="grid lg:grid-cols-5 items-stretch"
         initial={{ opacity: 0, y: 30 }}
@@ -16,8 +16,60 @@ export function JoinUsSection() {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        {/* Content - Left Side (3 columns) */}
-        <div className="lg:col-span-3 flex items-center">
+        {/* Join Us Image - Mobile: Above content, Desktop: Right Side (2 columns) */}
+        <div className="lg:col-span-2 lg:order-2 relative">
+          <div className="h-full min-h-[300px] lg:min-h-[400px] relative overflow-hidden">
+            <Image
+              src="/images/join-us-img.jpg"
+              alt="Join the Lombard Tech team"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+              priority={false}
+            />
+            {/* Enhanced gradient overlay for seamless blending */}
+            <div className="absolute inset-0 bg-gradient-to-r from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px] lg:block hidden" 
+                 style={{
+                   background: `linear-gradient(to right, 
+                     #061129 0%, 
+                     rgba(6, 17, 41, 0.98) 5%, 
+                     rgba(6, 17, 41, 0.95) 10%, 
+                     rgba(6, 17, 41, 0.90) 15%, 
+                     rgba(6, 17, 41, 0.82) 20%, 
+                     rgba(6, 17, 41, 0.72) 25%, 
+                     rgba(6, 17, 41, 0.60) 30%, 
+                     rgba(6, 17, 41, 0.46) 35%, 
+                     rgba(6, 17, 41, 0.32) 40%, 
+                     rgba(6, 17, 41, 0.20) 45%, 
+                     rgba(6, 17, 41, 0.10) 50%, 
+                     rgba(6, 17, 41, 0.04) 55%, 
+                     transparent 60%)`
+                 }}>
+            </div>
+            {/* Mobile gradient overlay - bottom blend */}
+            <div className="absolute inset-0 bg-gradient-to-t from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px] lg:hidden" 
+                 style={{
+                   background: `linear-gradient(to top, 
+                     #061129 0%, 
+                     rgba(6, 17, 41, 0.98) 5%, 
+                     rgba(6, 17, 41, 0.95) 10%, 
+                     rgba(6, 17, 41, 0.90) 15%, 
+                     rgba(6, 17, 41, 0.82) 20%, 
+                     rgba(6, 17, 41, 0.72) 25%, 
+                     rgba(6, 17, 41, 0.60) 30%, 
+                     rgba(6, 17, 41, 0.46) 35%, 
+                     rgba(6, 17, 41, 0.32) 40%, 
+                     rgba(6, 17, 41, 0.20) 45%, 
+                     rgba(6, 17, 41, 0.10) 50%, 
+                     rgba(6, 17, 41, 0.04) 55%, 
+                     transparent 60%)`
+                 }}>
+            </div>
+          </div>
+        </div>
+
+        {/* Content - Mobile: Below image, Desktop: Left Side (3 columns) */}
+        <div className="lg:col-span-3 lg:order-1 flex items-center">
           <div className="w-full px-6 lg:px-12 py-16">
             <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-8">
               Join the Team
@@ -84,40 +136,13 @@ export function JoinUsSection() {
                     A brand that's positioning itself as one of the most exciting upstarts in the industry
                   </p>
                 </div>
+                <div className="flex items-start">
+                  <span className="text-lt-gold mr-3 mt-1">•</span>
+                  <p className="text-lg text-lt-ivory leading-relaxed">
+                    We offer structured, hands-on training in-house, complemented by external coaching and specialist courses to deepen expertise and accelerate performance.
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Join Us Image - Right Side (2 columns) */}
-        <div className="lg:col-span-2 relative">
-          <div className="h-full min-h-[400px] relative overflow-hidden">
-            <Image
-              src="/images/join-us-img.jpg"
-              alt="Join the Lombard Tech team"
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
-              priority={false}
-            />
-            {/* Enhanced gradient overlay for seamless blending */}
-            <div className="absolute inset-0 bg-gradient-to-r from-lt-navy via-lt-navy/95 to-transparent backdrop-blur-[0.5px]" 
-                 style={{
-                   background: `linear-gradient(to right, 
-                     #061129 0%, 
-                     rgba(6, 17, 41, 0.98) 5%, 
-                     rgba(6, 17, 41, 0.95) 10%, 
-                     rgba(6, 17, 41, 0.90) 15%, 
-                     rgba(6, 17, 41, 0.82) 20%, 
-                     rgba(6, 17, 41, 0.72) 25%, 
-                     rgba(6, 17, 41, 0.60) 30%, 
-                     rgba(6, 17, 41, 0.46) 35%, 
-                     rgba(6, 17, 41, 0.32) 40%, 
-                     rgba(6, 17, 41, 0.20) 45%, 
-                     rgba(6, 17, 41, 0.10) 50%, 
-                     rgba(6, 17, 41, 0.04) 55%, 
-                     transparent 60%)`
-                 }}>
             </div>
           </div>
         </div>
