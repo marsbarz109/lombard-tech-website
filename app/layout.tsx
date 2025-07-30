@@ -60,9 +60,12 @@ export const metadata: Metadata = {
     creator: '@lombardtech',
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon.jpg', sizes: '32x32', type: 'image/jpeg' },
+      { url: '/images/favicon.jpg', sizes: '32x32', type: 'image/jpeg' }
+    ],
+    shortcut: '/favicon.jpg',
+    apple: '/images/favicon.jpg',
   },
   manifest: '/site.webmanifest',
   robots: {
