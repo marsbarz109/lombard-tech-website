@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import Script from 'next/script'
 import { Users, TrendingUp, Award, Target, ArrowRight, Upload, Shield, MessageSquare, Clock } from 'lucide-react'
 import { CANDIDATE_SERVICES } from '@/lib/constants'
 import { fadeInUp, scaleOnHover, staggerContainer, staggerItem } from '@/lib/animations'
@@ -48,30 +49,61 @@ export function CandidatesSection() {
 
   return (
     <section ref={ref} id="candidates" className="py-24 lg:py-32 bg-lt-navy">
-      <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-6">
-            Candidates
-          </h2>
-          <p className="text-lg text-lt-ivory max-w-4xl mx-auto leading-relaxed">
-            We know what it's like to be a candidate. The market is busy, roles are often poorly defined, and it's hard to know who to trust. We aim to change that by being transparent, straightforward, and genuinely helpful — whether you're actively looking or just want to understand your options.
-          </p>
-          <div className="flex justify-center mt-12">
-            <a
-              href="/contact"
-              className="inline-flex items-center px-8 py-4 bg-transparent text-lt-ivory border border-lt-ivory text-sm font-semibold tracking-wide hover:bg-lt-ivory hover:text-lt-navy transition-all duration-300"
-            >
-              <MessageSquare className="mr-2 h-4 w-4" />
-              Start a Conversation
-            </a>
+      {/* Main Content with Two-Column Layout */}
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] items-stretch mb-24 relative"
+        variants={fadeInUp}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        {/* Content - Left Side */}
+        <div className="flex items-center order-1 lg:order-1 px-6 lg:px-12">
+          <div className="w-full px-6 lg:px-12 lg:pr-0 py-16">
+            <h2 className="font-lombard text-4xl lg:text-5xl text-lt-gold mb-8">
+              Candidates
+            </h2>
+            <p className="text-lg text-lt-ivory leading-relaxed mb-12">
+              We know what it's like to be a candidate. The market is busy, roles are often poorly defined, and it's hard to know who to trust. We aim to change that by being transparent, straightforward, and genuinely helpful — whether you're actively looking or just want to understand your options.
+            </p>
+            <div className="flex justify-start">
+              <a
+                href="/contact"
+                className="inline-flex items-center px-8 py-4 bg-transparent text-lt-ivory border border-lt-ivory text-sm font-semibold tracking-wide hover:bg-lt-ivory hover:text-lt-navy transition-all duration-300"
+              >
+                <MessageSquare className="mr-2 h-4 w-4" />
+                Start a Conversation
+              </a>
+            </div>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Video - Right Side */}
+        <div className="relative order-2 lg:order-2 px-6 lg:px-0 lg:pr-12 py-8 lg:py-16 flex items-center">
+          <div className="w-full">
+            <div className="relative w-full" style={{ paddingTop: '116.67%', height: 0, overflow: 'hidden' }}>
+              <iframe
+                src="https://player.vimeo.com/video/1133083107?badge=0&autopause=0&player_id=0&app_id=58479"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                }}
+                title="Joe_Lombard_candidates_video"
+                className="rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <Script src="https://player.vimeo.com/api/player.js" strategy="afterInteractive" />
+
+      <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
 
         {/* Candidate Services Grid */}
         <motion.div
